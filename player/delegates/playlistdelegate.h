@@ -11,7 +11,8 @@
 #include <QStyledItemDelegate>
 #include "includes.h"
 
-#include <QMaemo5Style>
+//#include <QMaemo5Style>
+#include <QtMaemo5/qmaemo5style.h>
 
 class PlayListDelegate : public QStyledItemDelegate
 {

@@ -8,7 +8,8 @@
 #include <QNetworkConfigurationManager>
 #include <QNetworkSession>
 #include <QGraphicsView>
-#include <QMaemo5Style>
+//#include <QMaemo5Style>
+#include <QtMaemo5/qmaemo5style.h>
 
 #include "fmtxdialog.h"
 #include "maemo5deviceevents.h"

@@ -9,7 +9,8 @@
 #include <QFont>
 #include <QColor>
 #include <QStyledItemDelegate>
-#include <QMaemo5Style>
+//#include <QMaemo5Style>
+#include <QtMaemo5/qmaemo5style.h>
 #include "includes.h"
 
 class ProviderListItemDelegate : public QStyledItemDelegate
