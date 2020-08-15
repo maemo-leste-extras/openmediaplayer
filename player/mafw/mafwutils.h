@@ -1,9 +1,9 @@
 #ifndef MAFWUTILS_H
 #define MAFWUTILS_H
 
+#include <glib-object.h>
 #include <QString>
 #include <QVariant>
-#include <glib-object.h>
 
 namespace MafwUtils
 {

@@ -1,6 +1,7 @@
 #ifndef UPNPCONTROL_H
 #define UPNPCONTROL_H
 
+#include <gio/gio.h>
 #include <QListWidget>
 
 #include "includes.h"

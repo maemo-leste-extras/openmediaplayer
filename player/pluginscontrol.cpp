@@ -1,5 +1,6 @@
-#include "pluginscontrol.h"
+#include <gio/gio.h>
 
+#include "pluginscontrol.h"
 #include "pluginswindow.h"
 
 PluginsControl::PluginsControl(QWidget *parent) :

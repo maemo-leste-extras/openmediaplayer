@@ -1,6 +1,8 @@
 #ifndef VIDEONOWPLAYINGWINDOW_H
 #define VIDEONOWPLAYINGWINDOW_H
 
+#include <gio/gio.h>
+
 #include <QMainWindow>
 #include <QIcon>
 #include <QTimer>
@@ -18,10 +20,13 @@
 #include "metadatadialog.h"
 #include "bookmarkdialog.h"
 
-#include <QtGui/QX11Info>
+#include <QX11Info>
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 #include <X11/Xutil.h>
+// we need the udef, otherwise moc_videonowplayingwindow.cpp will fail to
+// compile
+#undef Bool
 #include <QMaemo5InformationBox>
 #include <QSpacerItem>
 #include "maemo5deviceevents.h"

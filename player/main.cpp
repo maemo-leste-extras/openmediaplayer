@@ -21,9 +21,9 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-#include <QtGui/QApplication>
-
 #include "mainwindow.h"
+
+#include <QtWidgets/QApplication>
 #include <QTime>
 #include <QTextStream>
 #include <QTranslator>

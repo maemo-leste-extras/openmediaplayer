@@ -1,6 +1,8 @@
 #ifndef NOWPLAYINGINDICATOR_H
 #define NOWPLAYINGINDICATOR_H
 
+#include <gio/gio.h>
+
 #include <QWidget>
 #include <QPainter>
 #include <QPixmap>

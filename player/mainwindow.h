@@ -26,8 +26,11 @@
 #include "currentplaylistmanager.h"
 
 #include <QMaemo5InformationBox>
-#include <QtGui/QX11Info>
+#include <QX11Info>
 #include <X11/Xlib.h>
+// Without this undef, moc_mainwindow.cpp will fail to compile
+#undef Bool
+
 #define DBUS_SERVICE   "com.nokia.mediaplayer"
 #define DBUS_PATH      "/com/nokia/osso/mediaplayer"
 #define DBUS_INTERFACE "com.nokia.mediaplayer"

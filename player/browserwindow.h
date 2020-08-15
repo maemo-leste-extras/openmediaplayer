@@ -4,6 +4,7 @@
 #include "basewindow.h"
 
 #include <QTimer>
+#include <QScrollBar>
 
 #include "ui_browserwindow.h"
 #include "includes.h"

@@ -24,7 +24,7 @@ QVariant MafwUtils::toQVariant(const GValue *v)
         case G_TYPE_LONG:
             return (qlonglong) g_value_get_long(v);
         case G_TYPE_INT64:
-            return g_value_get_int64(v);
+            return QVariant::fromValue(g_value_get_int64(v));
         case G_TYPE_FLOAT:
             return g_value_get_float(v);
         case G_TYPE_DOUBLE:

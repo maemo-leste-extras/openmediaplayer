@@ -6,6 +6,7 @@
 #include <QtGui>
 #include <QtDBus>
 #include <QTimer>
+#include <QScrollBar>
 
 #include "mirror.h"
 #include "cqgraphicsview.h"

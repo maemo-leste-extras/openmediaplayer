@@ -1,9 +1,11 @@
 #include "qmlview.h"
 
-#include <QtGui/QX11Info>
+#include <QX11Info>
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 #include <X11/Xutil.h>
+// We need to undef bool. otherwise moc files fail to compile
+#undef Bool
 
 QmlView::QmlView(QUrl source, QWidget *parent, MafwRegistryAdapter *mafwRegistry ) :
     QMainWindow(parent),

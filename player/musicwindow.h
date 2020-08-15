@@ -7,6 +7,7 @@
 #include <QStringList>
 #include <QDirIterator>
 #include <QtGui>
+#include <QScrollBar>
 
 #include "ui_musicwindow.h"
 #include "headerawareproxymodel.h"
