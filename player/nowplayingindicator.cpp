@@ -27,7 +27,7 @@ NowPlayingIndicator::NowPlayingIndicator(QWidget *parent) :
     ui->setupUi(this);
 
     setAttribute(Qt::WA_OpaquePaintEvent);
-    setAttribute(Qt::WA_Maemo5NonComposited);
+    setProperty("X-Maemo-NotComposited", 1);
 
     ready = false; // avoid segfaults on requesting info from the playlist too early
     poked = false;

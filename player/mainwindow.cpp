@@ -315,7 +315,7 @@ void MainWindow::openDirectory(const QString &uri, const QString &objectIdToPlay
         delete[] songAddBuffer[i];
     delete[] songAddBuffer;
 
-    setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+    setProperty("X-Maemo-Progress", 0);
 }
 
 void MainWindow::convertObjectId(QString &objectId, const char *basePath)
@@ -343,7 +343,7 @@ void MainWindow::mime_open(const QString &uriString)
 
             // M3U playlist, browse contents
             if (mime.endsWith("mpegurl")) {
-                setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+                setProperty("X-Maemo-Progress", 1);
                 convertObjectId(objectId, TAGSOURCE_PLAYLISTS_PATH);
 
                 CurrentPlaylistManager *cpm = CurrentPlaylistManager::acquire(mafwRegistry);
@@ -361,7 +361,7 @@ void MainWindow::mime_open(const QString &uriString)
 
                 // Audio, a whole directory has to be added
                 if (QSettings().value("main/openFolders").toBool()) {
-                    setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+                    setProperty("X-Maemo-Progress", 1);
                     convertObjectId(objectId, TAGSOURCE_AUDIO_PATH);
 
                     openDirectory(uriToPlay, objectId, Media::Audio);
@@ -399,7 +399,7 @@ void MainWindow::mime_open(const QString &uriString)
 
             // A whole directory has to be added
             if (QSettings().value("main/openFolders").toBool()) {
-                setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+                setProperty("X-Maemo-Progress", 1);
                 convertObjectId(objectId, TAGSOURCE_VIDEO_PATH);
 
                 openDirectory(uriToPlay, objectId, Media::Video);
@@ -444,7 +444,7 @@ void MainWindow::play_automatic_playlist(const QString &playlistName, bool shuff
         return;
     }
 
-    this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+    setProperty("X-Maemo-Progress", 1);
 
     playlist->assignAudioPlaylist();
     playlist->clear();
@@ -464,7 +464,7 @@ void MainWindow::play_saved_playlist(const QString &playlistName, bool shuffle)
     if (playlists->len != 0) {
         for (uint i = 0; i < playlists->len; i++) {
             if (playlistName == QString::fromUtf8(g_array_index(playlists, MafwPlaylistManagerItem, i).name)) {
-                setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+                setProperty("X-Maemo-Progresss", 1);
                 QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 
                 playlist->assignAudioPlaylist();
@@ -476,7 +476,7 @@ void MainWindow::play_saved_playlist(const QString &playlistName, bool shuffle)
 
                 mafwRenderer->play();
                 createNowPlayingWindow();
-                setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+                setProperty("X-Maemo-Progress", 0);
             }
         }
     }
@@ -672,14 +672,14 @@ void MainWindow::onAddFinished(uint token)
         createVideoNowPlayingWindow();
     }
 
-    setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+    setProperty("X-Maemo-Progress", 0);
 }
 
 void MainWindow::onShuffleAllClicked()
 {
     this->setEnabled(false);
 
-    setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+    setProperty("X-Maemo-Progress", 1);
 
     playlist->assignAudioPlaylist();
     playlist->clear();

@@ -59,7 +59,7 @@ void SingleArtistView::browseArtist(QString objectId)
 
 void SingleArtistView::listAlbums()
 {
-    this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+    setProperty("X-Maemo-Progress", 1);
 
     objectModel->clear();
     visibleSongs = 0;
@@ -117,7 +117,7 @@ void SingleArtistView::browseAllAlbums(uint browseId, int remainingCount, uint, 
     if (remainingCount == 0) {
         disconnect(mafwTrackerSource, SIGNAL(browseResult(uint,int,uint,QString,GHashTable*,QString)),
                    this, SLOT(browseAllAlbums(uint,int,uint,QString,GHashTable*)));
-        this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+        setProperty("X-Maemo-Progress", 0);
     }
 }
 
@@ -146,7 +146,7 @@ void SingleArtistView::updateSongCount()
 void SingleArtistView::addAllToNowPlaying()
 {
     if (objectModel->rowCount() > 1) {
-        this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+        setProperty("X-Maemo-Progress", 1);
 
         CurrentPlaylistManager *cpm = CurrentPlaylistManager::acquire(mafwRegistry);
         connect(cpm, SIGNAL(finished(uint,int)), this, SLOT(onArtistAddFinished(uint,int)), Qt::UniqueConnection);
@@ -173,7 +173,7 @@ void SingleArtistView::onArtistAddFinished(uint token, int count)
         notifyOnAddedToNowPlaying(count);
     }
 
-    setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+    setProperty("X-Maemo-Progress", 0);
 }
 
 void SingleArtistView::shuffleAllSongs()
@@ -224,7 +224,7 @@ void SingleArtistView::deleteCurrentArtist()
 
 void SingleArtistView::onAddAlbumToNowPlaying()
 {
-    this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+    setProperty("X-Maemo-Progress", 1);
 
     CurrentPlaylistManager *cpm = CurrentPlaylistManager::acquire(mafwRegistry);
     connect(cpm, SIGNAL(finished(uint,int)), this, SLOT(onAlbumAddFinished(uint,int)), Qt::UniqueConnection);
@@ -235,7 +235,7 @@ void SingleArtistView::onAlbumAddFinished(uint token, int count)
 {
     if (token != playlistToken) return;
 
-    this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+    setProperty("X-Maemo-Progress", 0);
     notifyOnAddedToNowPlaying(count);
 }
 

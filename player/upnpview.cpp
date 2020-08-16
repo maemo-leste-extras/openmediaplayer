@@ -31,7 +31,7 @@ UpnpView::~UpnpView()
 
 void UpnpView::browseObjectId(QString objectId)
 {
-    setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+    setProperty("X-Maemo-Progress", 1);
 
     objectModel->clear();
 
@@ -130,7 +130,7 @@ void UpnpView::onBrowseResult(uint browseId, int remainingCount, uint, QString o
     if (remainingCount == 0) {
         disconnect(mafwSource, SIGNAL(browseResult(uint,int,uint,QString,GHashTable*,QString)),
                    this, SLOT(onBrowseResult(uint,int,uint,QString,GHashTable*)));
-        setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+        setProperty("X-Maemo-Progress", 0);
     }
 }
 

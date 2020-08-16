@@ -570,7 +570,7 @@ void MusicWindow::listSongs()
     qDebug() << "MusicWindow: Source ready";
 #endif
 
-    this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+    setProperty("X-Maemo-Progress", 1);
 
     songModel->clear();
     connect(mafwTrackerSource, SIGNAL(browseResult(uint,int,uint,QString,GHashTable*,QString)),
@@ -592,7 +592,7 @@ void MusicWindow::listArtists()
     qDebug("Source ready");
 #endif
 
-    this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+    setProperty("X-Maemo-Progress", 1);
 
     artistModel->clear();
     connect(mafwTrackerSource, SIGNAL(browseResult(uint,int,uint,QString,GHashTable*,QString)),
@@ -611,7 +611,7 @@ void MusicWindow::listAlbums()
 {
     qDebug() << "Updating albums";
 
-    this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+    setProperty("X-Maemo-Progress", 1);
 
     albumModel->clear();
     connect(mafwTrackerSource, SIGNAL(browseResult(uint,int,uint,QString,GHashTable*,QString)),
@@ -629,7 +629,7 @@ void MusicWindow::listGenres()
 {
     qDebug() << "Updating genres";
 
-    this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+    setProperty("X-Maemo-Progress", 1);
 
     genresModel->clear();
     connect(mafwTrackerSource, SIGNAL(browseResult(uint,int,uint,QString,GHashTable*,QString)),
@@ -832,7 +832,7 @@ void MusicWindow::browseAllSongs(uint browseId, int remainingCount, uint, QStrin
     if (remainingCount == 0) {
         disconnect(mafwTrackerSource, SIGNAL(browseResult(uint,int,uint,QString,GHashTable*,QString)),
                    this, SLOT(browseAllSongs(uint,int,uint,QString,GHashTable*)));
-        this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+        setProperty("X-Maemo-Progress", 0);
     }
 }
 
@@ -876,7 +876,7 @@ void MusicWindow::browseAllArtists(uint browseId, int remainingCount, uint, QStr
     if (remainingCount == 0) {
         disconnect(mafwTrackerSource, SIGNAL(browseResult(uint,int,uint,QString,GHashTable*,QString)),
                    this, SLOT(browseAllArtists(uint,int,uint,QString,GHashTable*)));
-        this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+        setProperty("X-Maemo-Progress", 0);
     }
 }
 
@@ -922,7 +922,7 @@ void MusicWindow::browseAllAlbums(uint browseId, int remainingCount, uint, QStri
         disconnect(mafwTrackerSource, SIGNAL(browseResult(uint,int,uint,QString,GHashTable*,QString)),
                    this, SLOT(browseAllAlbums(uint,int,uint,QString,GHashTable*)));
 
-        this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+        setProperty("X-Maemo-Progress", 0);
     }
 }
 
@@ -964,7 +964,7 @@ void MusicWindow::browseAllGenres(uint browseId, int remainingCount, uint, QStri
     if (remainingCount == 0) {
         disconnect(mafwTrackerSource, SIGNAL(browseResult(uint,int,uint,QString,GHashTable*,QString)),
                    this, SLOT(browseAllGenres(uint,int,uint,QString,GHashTable*)));
-        this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+        setProperty("X-Maemo-Progress", 0);
     }
 }
 
@@ -1028,7 +1028,7 @@ void MusicWindow::onAddToNowPlaying()
 
     // Artist/album/genre list, add items from the selected artist/album/genre
     else if (currentList() == ui->artistList || currentList() == ui->albumList || currentList() == ui->genresList) {
-        this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+        setProperty("X-Maemo-Progress", 1);
 
         CurrentPlaylistManager *cpm = CurrentPlaylistManager::acquire(mafwRegistry);
         connect(cpm, SIGNAL(finished(uint,int)), this, SLOT(onAddFinished(uint,int)), Qt::UniqueConnection);
@@ -1037,7 +1037,7 @@ void MusicWindow::onAddToNowPlaying()
 
     // Playlist list, add items from the selected playlist
     else if (currentList() == ui->playlistList) {
-        this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+        setProperty("X-Maemo-Progress", 1);
         QModelIndex index = ui->playlistList->currentIndex();
         int row = playlistProxyModel->mapToSource(index).row();
 
@@ -1061,13 +1061,13 @@ void MusicWindow::onAddToNowPlaying()
         // Saved playlist
         else if (index.data(UserRoleObjectID).isNull()) {
 
-            setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+            setProperty("X-Maemo-Progress", 1);
             QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 
             MafwPlaylistAdapter mpa(index.data(Qt::DisplayRole).toString());
             playlist->appendItems(&mpa);
 
-            setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+            setProperty("X-Maemo-Progress", 0);
             notifyOnAddedToNowPlaying(mpa.size());
         }
 
@@ -1110,7 +1110,7 @@ void MusicWindow::onAddFinished(uint token, int count)
 {
     if (token != playlistToken) return;
 
-    this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+    setProperty("X-Maemo-Progress", 0);
     notifyOnAddedToNowPlaying(count);
 }
 

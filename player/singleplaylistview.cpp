@@ -27,7 +27,7 @@ SinglePlaylistView::SinglePlaylistView(QWidget *parent, MafwRegistryAdapter *maf
 {
     browsePlaylistId = MAFW_SOURCE_INVALID_BROWSE_ID;
 
-    setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+    setProperty("X-Maemo-Progress", 1);
 
     permanentDelete = QSettings().value("main/permanentDelete").toBool();
 
@@ -113,7 +113,7 @@ void SinglePlaylistView::onItemReceived(QString objectId, GHashTable* metadata, 
     }
 
     if (remainingCount == 0)
-        setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+        setProperty("X-Maemo-Progress", 0);
 }
 
 void SinglePlaylistView::setItemMetadata(QStandardItem *item, QString objectId, GHashTable *metadata)
@@ -204,7 +204,7 @@ void SinglePlaylistView::onBrowseResult(uint browseId, int remainingCount, uint 
     if (remainingCount == 0) {
         disconnect(mafwTrackerSource, SIGNAL(browseResult(uint,int,uint,QString,GHashTable*,QString)),
                    this, SLOT(onBrowseResult(uint,int,uint,QString,GHashTable*)));
-        setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+        setProperty("X-Maemo-Progress", 0);
         playlistLoaded = true;
 
         switch (pendingActivation) {

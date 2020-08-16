@@ -14,7 +14,7 @@ MetadataDialog::MetadataDialog(QWidget *parent, MafwSourceAdapter *mafwSource, c
 {
     init();
 
-    this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+    setProperty("X-Maemo-Progress", 1);
 
     connect(mafwSource, SIGNAL(metadataResult(QString,GHashTable*,QString)), this, SLOT(onMetadataReceived(QString,GHashTable*)));
     mafwSource->getMetadata(objectId, MAFW_SOURCE_ALL_KEYS);
@@ -104,7 +104,7 @@ void MetadataDialog::onMetadataReceived(const QString &objectId, GHashTable *met
 
     display(qMetadata);
 
-    this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+    setProperty("X-Maemo-Progress", 0);
 }
 
 void MetadataDialog::onContextMenuRequested(const QPoint &pos)

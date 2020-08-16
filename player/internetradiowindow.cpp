@@ -153,7 +153,7 @@ void InternetRadioWindow::listStations()
     qDebug("Source ready");
 #endif
 
-    this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+    setProperty("X-Maemo-Progress", 1);
 
     connect(mafwRadioSource, SIGNAL(browseResult(uint,int,uint,QString,GHashTable*,QString)),
             this, SLOT(browseAllStations(uint,int,uint,QString,GHashTable*)), Qt::UniqueConnection);
@@ -257,6 +257,6 @@ void InternetRadioWindow::browseAllStations(uint browseId, int remainingCount, u
             }
         }
 
-        this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+        setProperty("X-Maemo-Progress", 0);
     }
 }

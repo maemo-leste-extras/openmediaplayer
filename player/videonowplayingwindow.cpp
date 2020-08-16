@@ -29,7 +29,7 @@ VideoNowPlayingWindow::VideoNowPlayingWindow(QWidget *parent, MafwRegistryAdapte
 
     setAttribute(Qt::WA_OpaquePaintEvent);
     setAttribute(Qt::WA_DeleteOnClose);
-    setAttribute(Qt::WA_Maemo5StackedWindow);
+    setProperty("X-Maemo-StackedWindow", 1);
 
     // Lock the orientation to landscape, but remember the policy to restore it later
     Rotator *rotator = Rotator::acquire();

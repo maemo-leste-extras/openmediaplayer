@@ -90,7 +90,7 @@ void SingleGenreView::browseGenre(QString objectId)
 
 void SingleGenreView::listArtists()
 {
-    setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+    setProperty("X-Maemo-Progress", 1);
 
     visibleSongs = 0;
     objectModel->clear();
@@ -152,7 +152,7 @@ void SingleGenreView::browseAllGenres(uint browseId, int remainingCount, uint, Q
     if (remainingCount == 0) {
         disconnect(mafwTrackerSource, SIGNAL(browseResult(uint,int,uint,QString,GHashTable*,QString)),
                    this, SLOT(browseAllGenres(uint,int,uint,QString,GHashTable*)));
-        setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+        setProperty("X-Maemo-Progress", 0);
     }
 }
 
@@ -174,7 +174,7 @@ void SingleGenreView::onContextMenuRequested(const QPoint &pos)
 
 void SingleGenreView::addArtistToNowPlaying()
 {
-    this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+    setProperty("X-Maemo-Progress", 1);
 
     ui->objectList->clearSelection();
 
@@ -204,7 +204,7 @@ void SingleGenreView::onAddFinished(uint token, int count)
         notifyOnAddedToNowPlaying(count);
     }
 
-    setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+    setProperty("X-Maemo-Progress", 0);
 }
 
 void SingleGenreView::showDetails()
@@ -220,7 +220,7 @@ void SingleGenreView::onContainerChanged(QString objectId)
 
 void SingleGenreView::addAllToNowPlaying()
 {
-    this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+    setProperty("X-Maemo-Progress", 1);
 
     ui->objectList->clearSelection();
 

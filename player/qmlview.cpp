@@ -18,8 +18,8 @@ QmlView::QmlView(QUrl source, QWidget *parent, MafwRegistryAdapter *mafwRegistry
     ui->declarativeView->setResizeMode(QDeclarativeView::SizeRootObjectToView);
 
     setAttribute(Qt::WA_DeleteOnClose);
-    setAttribute(Qt::WA_Maemo5StackedWindow);
-    setAttribute(Qt::WA_Maemo5NonComposited);
+    setProperty("X-Maemo-StackedWindow", 1);
+    setProperty("X-Maemo-NotComposited", 1);
 
     QGLWidget *glWidget = new QGLWidget(this);
     ui->declarativeView->setViewport(glWidget);

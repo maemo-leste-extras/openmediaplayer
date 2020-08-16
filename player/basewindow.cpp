@@ -3,7 +3,7 @@
 BaseWindow::BaseWindow(QWidget *parent) :
     QMainWindow(parent)
 {
-    setAttribute(Qt::WA_Maemo5StackedWindow);
+    setProperty("X-Maemo-StackedWindow", 1);
 
     connect(new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Enter), this), SIGNAL(activated()), this, SLOT(showWindowMenu()));
 }

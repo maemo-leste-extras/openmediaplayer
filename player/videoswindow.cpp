@@ -192,7 +192,7 @@ void VideosWindow::selectView()
 
 void VideosWindow::listVideos()
 {
-    this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+    setProperty("X-Maemo-Progress", 1);
 
 #ifdef DEBUG
     qDebug("Source ready");
@@ -334,7 +334,7 @@ void VideosWindow::browseAllVideos(uint browseId, int remainingCount, uint index
             }
         }
 
-        this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+        setProperty("X-Maemo-Progress", 0);
     }
 }
 

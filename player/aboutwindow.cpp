@@ -7,7 +7,7 @@ AboutWindow::AboutWindow(QWidget *parent) :
     ui->setupUi(this);
 
     setAttribute(Qt::WA_DeleteOnClose);
-    setAttribute(Qt::WA_Maemo5StackedWindow);
+    setProperty("X-Maemo-StackedWindow", 1);
 
     ui->iconLabel->setPixmap(QIcon::fromTheme("openmediaplayer").pixmap(64, 64));
 

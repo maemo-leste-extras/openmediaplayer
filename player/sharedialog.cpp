@@ -34,7 +34,7 @@ void ShareDialog::keyPressEvent(QKeyEvent *e)
 
 void ShareDialog::setProgressIndicator()
 {
-    this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, true);
+    setProperty("X-Maemo-Progress", 1);
 }
 
 void ShareDialog::onUriReceived(QString objectId, QString uri)
@@ -43,7 +43,7 @@ void ShareDialog::onUriReceived(QString objectId, QString uri)
 
     disconnect(this->sender(), SIGNAL(gotUri(QString,QString,QString)), this, SLOT(onUriReceived(QString,QString)));
 
-    this->setAttribute(Qt::WA_Maemo5ShowProgressIndicator, false);
+    setProperty("X-Maemo-Progress", 0);
 
     this->uri = uri;
 
