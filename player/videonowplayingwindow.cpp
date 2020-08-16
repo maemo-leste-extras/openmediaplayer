@@ -94,7 +94,7 @@ VideoNowPlayingWindow::VideoNowPlayingWindow(QWidget *parent, MafwRegistryAdapte
     ui->currentPositionLabel->installEventFilter(this);
 
     // Set up video surface
-    QApplication::syncX();
+    QApplication::sync();
     mafwRenderer->setColorKey(colorKey().rgb() & 0xffffff);
     mafwRenderer->setXid(ui->videoWidget->winId());
 
