@@ -6,8 +6,7 @@
 #include <QPainter>
 #include "includes.h"
 
-//#include <QMaemo5Style>
-#include <QtMaemo5/qmaemo5style.h>
+#include <QMaemo5Style>
 
 class ArtistListItemDelegate : public QStyledItemDelegate
 {
