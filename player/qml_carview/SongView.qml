@@ -1,4 +1,4 @@
-import QtQuick 1.0
+import QtQuick 2.11
 
 Rectangle { id: songView
   property alias artistName: artistName.text

@@ -1,4 +1,4 @@
-import Qt 4.7
+import QtQml 2.11
 
 Rectangle {
   id: mainRectangle

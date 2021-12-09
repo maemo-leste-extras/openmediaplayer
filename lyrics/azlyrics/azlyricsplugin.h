@@ -6,9 +6,12 @@
 #include <QTextDocument>
 #include <QRegExp>
 
+QT_BEGIN_NAMESPACE
+
 class AZLyricsPlugin : public AbstractLyricsProvider
 {
     Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.openmediaplayer.AZLyrics" FILE "azlyrics.json")
     Q_INTERFACES(AbstractLyricsProvider)
 
 public:
@@ -23,5 +26,7 @@ public:
 private slots:
     void onReplyReceived();
 };
+
+QT_END_NAMESPACE
 
 #endif // AZLYRICSPLUGIN_H

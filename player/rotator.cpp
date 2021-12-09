@@ -16,23 +16,23 @@ void Rotator::setPolicy(Orientation policy)
 {
     m_policy = policy;
 
-    if (m_slave) switch (m_policy) {
-        case Automatic:
-            m_slave->setAttribute(Qt::WA_Maemo5AutoOrientation, true);
-            m_slave->setAttribute(Qt::WA_Maemo5LandscapeOrientation, false);
-            m_slave->setAttribute(Qt::WA_Maemo5PortraitOrientation, false);
-            break;
-        case Landscape:
-            m_slave->setAttribute(Qt::WA_Maemo5AutoOrientation, false);
-            m_slave->setAttribute(Qt::WA_Maemo5LandscapeOrientation, true);
-            m_slave->setAttribute(Qt::WA_Maemo5PortraitOrientation, false);
-            break;
-        case Portrait:
-            m_slave->setAttribute(Qt::WA_Maemo5AutoOrientation, false);
-            m_slave->setAttribute(Qt::WA_Maemo5LandscapeOrientation, false);
-            m_slave->setAttribute(Qt::WA_Maemo5PortraitOrientation, true);
-            break;
-    }
+    //if (m_slave) switch (m_policy) {
+    //    case Automatic:
+    //        m_slave->setAttribute(Qt::WA_Maemo5AutoOrientation, true);
+    //        m_slave->setAttribute(Qt::WA_Maemo5LandscapeOrientation, false);
+    //        m_slave->setAttribute(Qt::WA_Maemo5PortraitOrientation, false);
+    //        break;
+    //    case Landscape:
+    //        m_slave->setAttribute(Qt::WA_Maemo5AutoOrientation, false);
+    //        m_slave->setAttribute(Qt::WA_Maemo5LandscapeOrientation, true);
+    //        m_slave->setAttribute(Qt::WA_Maemo5PortraitOrientation, false);
+    //        break;
+    //    case Portrait:
+    //        m_slave->setAttribute(Qt::WA_Maemo5AutoOrientation, false);
+    //        m_slave->setAttribute(Qt::WA_Maemo5LandscapeOrientation, false);
+    //        m_slave->setAttribute(Qt::WA_Maemo5PortraitOrientation, true);
+    //        break;
+    //}
 
     onResized();
 }

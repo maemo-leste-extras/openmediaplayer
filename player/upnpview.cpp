@@ -78,13 +78,17 @@ void UpnpView::onBrowseResult(uint browseId, int remainingCount, uint, QString o
                 if (colon2 != -1 && info.length() - colon2 > 5) {
                     QStringRef infoMime(&info, colon2+1, 5);
 
+#if 0
                     if (!infoMime.compare("audio")) {
                         mime = AudioMime;
                     } else if (!infoMime.compare("video")) {
                         mime = VideoMime;
                     } else {
+#endif
                         v = NULL;
+#if 0
                     }
+#endif
                 } else {
                     v = NULL;
                 }

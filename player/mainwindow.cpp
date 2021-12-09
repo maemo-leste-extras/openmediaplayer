@@ -267,6 +267,7 @@ void MainWindow::openDirectory(const QString &uri, const QString &objectIdToPlay
 
     for (int i = 0; i < songAddBufferSize; i++) {
         QString file = entries.at(i);
+#if 0
         QString mime = gnome_vfs_get_mime_type_for_name(file.toUtf8());
 
         // maybe there's a better way to ignore playlists
@@ -275,6 +276,7 @@ void MainWindow::openDirectory(const QString &uri, const QString &objectIdToPlay
                                                             .replace("/", "%2F")
                                                             .prepend(root)
                                                             .toUtf8());
+#endif
     }
 
     songAddBuffer[songAddBufferPos] = NULL;
@@ -333,6 +335,7 @@ void MainWindow::mime_open(const QString &uriString)
     QString objectId = mafwTrackerSource->createObjectId(uriToPlay);
     qDebug() << "ID to open:" << objectId;
 
+#if 0
     // Local resource
     if (uriToPlay.startsWith("file://")) {
         QString mime(gnome_vfs_get_mime_type_for_name(uriToPlay.toUtf8()));
@@ -424,6 +427,7 @@ void MainWindow::mime_open(const QString &uriString)
         playlist->appendItem(objectId);
         createVideoNowPlayingWindow();
     }
+#endif
 }
 
 void MainWindow::play_automatic_playlist(const QString &playlistName, bool shuffle)

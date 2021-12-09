@@ -38,9 +38,10 @@
  **
  ****************************************************************************/
 
- #include <QtGui/qplaintextedit.h>
- #include <QtGui/qtextedit.h>
- #include <QtGui/qabstractkineticscroller.h>
+ #include <QPlainTextEdit>
+ #include <QTextEdit>
+ #include <QScroller>
+ //#include <QtGui/qabstractkineticscroller.h>
 
  #ifndef TEXTEDITAUTORESIZER_H
  #define TEXTEDITAUTORESIZER_H
@@ -90,11 +91,13 @@
          if (pw->parentWidget()) {
              if (QAbstractScrollArea *area = qobject_cast<QAbstractScrollArea *>(
                              pw->parentWidget()->parentWidget())) {
+#if 0
                  if (QAbstractKineticScroller * scroller=
                          area->property("kineticScroller").value<QAbstractKineticScroller *>()) {
                      scroller->ensureVisible(pos + cursor.center(), 10 + cursor.width(),
                                              2 * cursor.height());
                  }
+#endif
                  break;
              }
          }
