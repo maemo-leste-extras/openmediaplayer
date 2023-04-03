@@ -1,9 +1,9 @@
 #ifndef SINGLEGENREVIEW_H
 #define SINGLEGENREVIEW_H
 
-#include "browserwindow.h"
-
 #include "mafw/mafwregistryadapter.h"
+
+#include "browserwindow.h"
 
 #include "delegates/artistlistitemdelegate.h"
 #include "delegates/shufflebuttondelegate.h"
@@ -36,7 +36,7 @@ private:
     void notifyOnAddedToNowPlaying(int songCount);
     void updateSongCount();
 
-private slots:
+private Q_SLOTS:
     void onItemActivated(QModelIndex index);
     void addAllToNowPlaying();
     void onContextMenuRequested(const QPoint &pos = QPoint(35,35));

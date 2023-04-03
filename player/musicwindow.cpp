@@ -665,7 +665,7 @@ void MusicWindow::listAutoPlaylists()
     int limit = QSettings().value("music/playlistSize", 30).toInt();
     QStringList playlists;
     playlists << tr("Recently added") << tr("Recently played") << tr("Most played") << tr("Never played");
-    foreach (QString string, playlists) {
+    Q_FOREACH (QString string, playlists) {
         QStandardItem *item = new QStandardItem();
         item->setText(string);
         item->setData(Duration::Blank, UserRoleSongDuration);
@@ -701,6 +701,7 @@ void MusicWindow::listSavedPlaylists()
 
     MafwPlaylistManagerAdapter *mafwPlaylistManager = MafwPlaylistManagerAdapter::get();
     GArray* playlists = mafwPlaylistManager->listPlaylists();
+    if(playlists == nullptr) return;
     savedPlaylistCount = 0;
 
     if (playlists->len != 0) {
@@ -1124,7 +1125,7 @@ void MusicWindow::closeEvent(QCloseEvent *)
     QMainWindow *child = findChild<QMainWindow*>();
     if (child) child->close();
 
-    emit hidden();
+    Q_EMIT hidden();
 }
 
 void MusicWindow::onNowPlayingWindowHidden()

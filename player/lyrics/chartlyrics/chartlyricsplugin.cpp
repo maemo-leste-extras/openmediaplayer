@@ -34,9 +34,9 @@ void ChartLyricsPlugin::onReplyReceived()
             { lyrics = xml.readElementText(); break; }
 
     if (lyrics.isEmpty())
-        emit error("The lyrics for this song are missing on ChartLyrics.");
+        Q_EMIT error("The lyrics for this song are missing on ChartLyrics.");
     else
-        emit fetched(lyrics);
+        Q_EMIT fetched(lyrics);
 }
 
 Q_EXPORT_PLUGIN2(chartlyricsplugin, ChartLyricsPlugin)

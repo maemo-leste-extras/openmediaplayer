@@ -1,11 +1,11 @@
 #ifndef MAFWSOURCEADAPTER_H
 #define MAFWSOURCEADAPTER_H
 
+#include <libmafw/mafw.h>
+
 #include <QObject>
 
 #include <QStringList>
-
-#include <libmafw/mafw.h>
 
 class MafwSourceAdapter : public QObject
 {
@@ -32,7 +32,7 @@ public:
     void setMetadata(const QString &objectId, GHashTable *metadata);
     QString createObjectId(const QString &uri);
 
-signals:
+Q_SIGNALS:
     // Exposed signals
     void containerChanged(const QString &objectId);
     void metadataChanged(const QString &objectId);
@@ -69,7 +69,7 @@ private:
     static void onObjectDestroyed(MafwSource *, const gchar *objectId, gpointer self, const GError *error);
     static void onMetadataSet(MafwSource *, const gchar *objectId, const char **failedKeys, gpointer self, const GError *error);
 
-private slots:
+private Q_SLOTS:
     void onSourceAdded(MafwSource *source);
     void onSourceRemoved(MafwSource *source);
 };

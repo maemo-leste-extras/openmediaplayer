@@ -1,6 +1,8 @@
 #ifndef SLEEPER_H
 #define SLEEPER_H
 
+#include "mafw/mafwrendereradapter.h"
+
 #include <QObject>
 
 #include <QTimer>
@@ -9,8 +11,6 @@
 #include <QSettings>
 #include <QtCore>
 #include <QDebug>
-
-#include "mafw/mafwrendereradapter.h"
 
 class Sleeper : public QObject
 {
@@ -43,10 +43,10 @@ private:
 
     void scheduleVolumeStep(int volume);
 
-signals:
+Q_SIGNALS:
     void finished();
 
-private slots:
+private Q_SLOTS:
     void onInitialVolumeReceived(int volume);
     void onPropertyChanged(const QString &name, const QVariant &value);
     void stepVolume();

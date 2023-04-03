@@ -1,9 +1,9 @@
 #ifndef SINGLEALBUMVIEW_H
 #define SINGLEALBUMVIEW_H
 
-#include "browserwindow.h"
-
 #include "mafw/mafwregistryadapter.h"
+
+#include "browserwindow.h"
 
 #include "includes.h"
 #include "confirmdialog.h"
@@ -29,7 +29,7 @@ private:
     QString albumObjectId;
     uint browseAlbumId;
 
-private slots:
+private Q_SLOTS:
     void listSongs();
     void updateSongCount();
     void browseAllSongs(uint browseId, int remainingCount, uint index, QString objectId, GHashTable *metadata);

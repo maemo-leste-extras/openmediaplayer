@@ -27,7 +27,7 @@ private:
     QString artist;
     QString title;
 
-private slots:
+private Q_SLOTS:
     void save();
 };
 

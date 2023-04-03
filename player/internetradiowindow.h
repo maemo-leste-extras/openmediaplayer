@@ -1,6 +1,8 @@
 #ifndef INTERNETRADIOWINDOW_H
 #define INTERNETRADIOWINDOW_H
 
+#include "mafw/mafwregistryadapter.h"
+
 #include "browserwindow.h"
 
 #include <QDialog>
@@ -20,8 +22,6 @@
 #include "fmtxdialog.h"
 #include "delegates/songlistitemdelegate.h"
 
-#include "mafw/mafwregistryadapter.h"
-
 class InternetRadioWindow : public BrowserWindow
 {
     Q_OBJECT
@@ -38,7 +38,7 @@ private:
     CurrentPlaylistAdapter *playlist;
     unsigned int browseId;
 
-private slots:
+private Q_SLOTS:
     void showFMTXDialog();
     void onAddClicked();
     void onEditClicked();

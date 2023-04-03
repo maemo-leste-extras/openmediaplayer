@@ -1,13 +1,12 @@
 #ifndef UPNPCONTROL_H
 #define UPNPCONTROL_H
 
-#include <gio/gio.h>
+#include "mafw/mafwregistryadapter.h"
+
 #include <QListWidget>
 
 #include "includes.h"
 #include "upnpview.h"
-
-#include "mafw/mafwregistryadapter.h"
 
 namespace Ui {
     class UpnpControl;
@@ -22,11 +21,11 @@ public:
 
     void setRegistry(MafwRegistryAdapter *mafwRegistry);
 
-signals:
+Q_SIGNALS:
     void childOpened();
     void childClosed();
 
-private slots:
+private Q_SLOTS:
     void onSourceAdded(const QString &uuid, const QString &name);
     void onSourceRemoved(const QString &uuid);
     void onItemActivated(QListWidgetItem *item);

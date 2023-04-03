@@ -63,7 +63,7 @@ void MafwSourceAdapter::bind(MafwSource *source)
         // Emit the signal in case something changed before the adapter got
         // reconnected after losing its source or to notify listeners about
         // readiness if this is the first time.
-        emit containerChanged(uuid() + "::");
+        Q_EMIT containerChanged(uuid() + "::");
     } else {
         // Unbind permanently, forget about the UUID
         drop();
@@ -175,17 +175,17 @@ QString MafwSourceAdapter::createObjectId(const QString &uri)
 
 void MafwSourceAdapter::onContainerChanged(MafwSource *, gchar *objectId, MafwSourceAdapter *self)
 {
-    emit self->containerChanged(QString::fromUtf8(objectId));
+    Q_EMIT self->containerChanged(QString::fromUtf8(objectId));
 }
 
 void MafwSourceAdapter::onMetadataChanged(MafwSource *, gchar *objectId, MafwSourceAdapter *self)
 {
-    emit self->metadataChanged(QString::fromUtf8(objectId));
+    Q_EMIT self->metadataChanged(QString::fromUtf8(objectId));
 }
 
 void MafwSourceAdapter::onUpdating(MafwSource *, gint progress, gint processedItems, gint remainingItems, gint remainingTime, MafwSourceAdapter *self)
 {
-    emit self->updating(progress, processedItems, remainingItems, remainingTime);
+    Q_EMIT self->updating(progress, processedItems, remainingItems, remainingTime);
 }
 
 //--- Callbacks ----------------------------------------------------------------
@@ -193,13 +193,13 @@ void MafwSourceAdapter::onUpdating(MafwSource *, gint progress, gint processedIt
 void MafwSourceAdapter::onBrowseResult(MafwSource *, guint browseId, gint remainingCount, guint index, const gchar *objectId, GHashTable *metadata, gpointer self, const GError *error)
 {
     if (instances.contains(self))
-        emit static_cast<MafwSourceAdapter*>(self)->browseResult(browseId, remainingCount, index, QString::fromUtf8(objectId), metadata, MafwUtils::toQString(error));
+        Q_EMIT static_cast<MafwSourceAdapter*>(self)->browseResult(browseId, remainingCount, index, QString::fromUtf8(objectId), metadata, MafwUtils::toQString(error));
 }
 
 void MafwSourceAdapter::onMetadataResult(MafwSource *, const gchar *objectId, GHashTable *metadata, gpointer self, const GError *error)
 {
     if (instances.contains(self))
-        emit static_cast<MafwSourceAdapter*>(self)->metadataResult(QString::fromUtf8(objectId), metadata, MafwUtils::toQString(error));
+        Q_EMIT static_cast<MafwSourceAdapter*>(self)->metadataResult(QString::fromUtf8(objectId), metadata, MafwUtils::toQString(error));
 }
 
 void MafwSourceAdapter::onUriResult(MafwSource *, const gchar *objectId, GHashTable *metadata, gpointer self, const GError *error)
@@ -209,20 +209,20 @@ void MafwSourceAdapter::onUriResult(MafwSource *, const gchar *objectId, GHashTa
         if (GValue *v = mafw_metadata_first(metadata, MAFW_METADATA_KEY_URI))
             uri = QString::fromUtf8(g_value_get_string(v));
 
-        emit static_cast<MafwSourceAdapter*>(self)->gotUri(QString::fromUtf8(objectId), uri, MafwUtils::toQString(error));
+        Q_EMIT static_cast<MafwSourceAdapter*>(self)->gotUri(QString::fromUtf8(objectId), uri, MafwUtils::toQString(error));
     }
 }
 
 void MafwSourceAdapter::onObjectCreated(MafwSource *, const gchar* objectId, gpointer self, const GError *error)
 {
     if (instances.contains(self))
-        emit static_cast<MafwSourceAdapter*>(self)->objectCreated(QString::fromUtf8(objectId), MafwUtils::toQString(error));
+        Q_EMIT static_cast<MafwSourceAdapter*>(self)->objectCreated(QString::fromUtf8(objectId), MafwUtils::toQString(error));
 }
 
 void MafwSourceAdapter::onObjectDestroyed(MafwSource *, const gchar *objectId, gpointer self, const GError *error)
 {
     if (instances.contains(self))
-        emit static_cast<MafwSourceAdapter*>(self)->objectDestroyed(QString::fromUtf8(objectId), MafwUtils::toQString(error));
+        Q_EMIT static_cast<MafwSourceAdapter*>(self)->objectDestroyed(QString::fromUtf8(objectId), MafwUtils::toQString(error));
 }
 
 void MafwSourceAdapter::onMetadataSet(MafwSource *, const gchar *objectId, const gchar **failedKeys, gpointer self, const GError *error)
@@ -233,6 +233,6 @@ void MafwSourceAdapter::onMetadataSet(MafwSource *, const gchar *objectId, const
             for (; *failedKeys; failedKeys++)
                 failedKeyList.append(*failedKeys);
 
-        emit static_cast<MafwSourceAdapter*>(self)->metadataSet(QString::fromUtf8(objectId), failedKeyList, MafwUtils::toQString(error));
+        Q_EMIT static_cast<MafwSourceAdapter*>(self)->metadataSet(QString::fromUtf8(objectId), failedKeyList, MafwUtils::toQString(error));
     }
 }

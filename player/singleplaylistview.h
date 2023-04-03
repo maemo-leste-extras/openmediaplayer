@@ -1,6 +1,8 @@
 #ifndef SINGLEPLAYLISTVIEW_H
 #define SINGLEPLAYLISTVIEW_H
 
+#include "mafw/mafwregistryadapter.h"
+
 #include "browserwindow.h"
 
 #include "confirmdialog.h"
@@ -9,8 +11,6 @@
 #include "delegates/shufflebuttondelegate.h"
 
 #include <QMaemo5InformationBox>
-
-#include "mafw/mafwregistryadapter.h"
 
 class SinglePlaylistView : public BrowserWindow
 {
@@ -51,7 +51,7 @@ private:
     uint browsePlaylistId;
     int remainingCount;
 
-private slots:
+private Q_SLOTS:
     void updateSongCount();
     void setItemMetadata(QStandardItem *item, QString objectId, GHashTable *metadata);
     void onItemReceived(QString objectId, GHashTable* metadata, uint index);

@@ -9,9 +9,9 @@ void SonataPlugin::fetch(QString artist, QString title)
     file.close();
 
     if (lyrics.isEmpty())
-        emit error("The lyrics for this song are missing from Sonata cache.");
+        Q_EMIT error("The lyrics for this song are missing from Sonata cache.");
     else
-        emit fetched(lyrics);
+        Q_EMIT fetched(lyrics);
 }
 
 Q_EXPORT_PLUGIN2(sonataplugin, SonataPlugin)

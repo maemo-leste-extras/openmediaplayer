@@ -1,6 +1,8 @@
 #ifndef BOOKMARKDIALOG_H
 #define BOOKMARKDIALOG_H
 
+#include "mafw/mafwregistryadapter.h"
+
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QMaemo5InformationBox>
@@ -8,8 +10,6 @@
 #include "ui_bookmarkdialog.h"
 #include "includes.h"
 #include "rotator.h"
-
-#include "mafw/mafwregistryadapter.h"
 
 namespace Ui {
     class BookmarkDialog;
@@ -28,7 +28,7 @@ private:
     MafwSourceAdapter *mafwRadioSource;
     QString objectId;
 
-private slots:
+private Q_SLOTS:
     void accept();
     void onOrientationChanged(int h, int w);
 };

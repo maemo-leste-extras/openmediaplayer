@@ -38,14 +38,14 @@ public:
     Startability startability();
     void setEnabled(bool enabled);
 
-signals:
+Q_SIGNALS:
     void propertyChanged();
 
 private:
     QVariant property(const QString &name);
     void setProperty(const QString &name, const QVariant &value);
 
-private slots:
+private Q_SLOTS:
     void onPropertyChanged();
 };
 

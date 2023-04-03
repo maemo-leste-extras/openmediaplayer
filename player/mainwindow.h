@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "mafw/mafwregistryadapter.h"
+
 #include "basewindow.h"
 
 #include <QMainWindow>
@@ -35,7 +37,6 @@
 #define DBUS_PATH      "/com/nokia/osso/mediaplayer"
 #define DBUS_INTERFACE "com.nokia.mediaplayer"
 
-#include "mafw/mafwregistryadapter.h"
 //#include <libgnomevfs/gnome-vfs-mime-utils.h>
 #define TAGSOURCE_AUDIO_PATH     "localtagfs::music/songs"
 #define TAGSOURCE_PLAYLISTS_PATH "localtagfs::music/playlists"
@@ -55,7 +56,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-public slots:
+public Q_SLOTS:
     Q_SCRIPTABLE void open_mp_main_view();
     Q_SCRIPTABLE void open_mp_now_playing();
     Q_SCRIPTABLE void open_mp_now_playing_playback_on();
@@ -91,7 +92,7 @@ private:
     void openDirectory(const QString &uri, const QString &objectIdToPlay, Media::Type type);
     void convertObjectId(QString &objectId, const char *basePath);
 
-private slots:
+private Q_SLOTS:
     void onOrientationChanged(int w, int h);
     void showAbout();
     void processListClicks(QListWidgetItem*);

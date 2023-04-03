@@ -86,7 +86,7 @@ void FrequencyPickDialog::accept()
     const QList<QListWidgetItem*> khz = ui->khzList->selectedItems();
 
     if (!mhz.isEmpty() && !khz.isEmpty()) {
-        emit selected(mhz.first()->text().toInt() * 1000 + ui->khzList->row(khz.first()) * step);
+        Q_EMIT selected(mhz.first()->text().toInt() * 1000 + ui->khzList->row(khz.first()) * step);
         QDialog::accept();
     }
 }

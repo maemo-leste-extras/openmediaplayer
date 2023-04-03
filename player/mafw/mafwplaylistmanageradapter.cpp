@@ -56,7 +56,7 @@ void MafwPlaylistManagerAdapter::import_cb(MafwPlaylistManager *,
                                            gpointer user_data,
                                            const GError *)
 {
-    emit static_cast<MafwPlaylistManagerAdapter*>(user_data)->playlistImported(playlist, import_id);
+    Q_EMIT static_cast<MafwPlaylistManagerAdapter*>(user_data)->playlistImported(playlist, import_id);
 }
 
 MafwProxyPlaylist* MafwPlaylistManagerAdapter::getPlaylist(guint id)

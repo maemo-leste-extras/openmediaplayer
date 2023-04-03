@@ -1,5 +1,3 @@
-#include <gio/gio.h>
-
 #include "pluginscontrol.h"
 #include "pluginswindow.h"
 
@@ -32,7 +30,7 @@ void PluginsControl::onSourceRemoved(const QString &uuid)
 
 void PluginsControl::openWindow()
 {
-    emit childOpened();
+    Q_EMIT childOpened();
 
     PluginsWindow *pluginsWindow = new PluginsWindow(this->parentWidget(), sources);
     pluginsWindow->show();
@@ -42,5 +40,5 @@ void PluginsControl::openWindow()
 
 void PluginsControl::onChildClosed()
 {
-    emit childClosed();
+    Q_EMIT childClosed();
 }

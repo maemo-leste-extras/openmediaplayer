@@ -27,7 +27,7 @@ private:
     QString artist;
     QString title;
 
-private slots:
+private Q_SLOTS:
     void onOrientationChanged(int w, int h);
     void onMetadataChanged(QString key, QVariant value);
     void accept();

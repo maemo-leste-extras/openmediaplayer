@@ -15,7 +15,7 @@ public:
 
     QWidget* widget(QWidget *parent);
 
-signals:
+Q_SIGNALS:
     void selected(const QString &valueText);
 
 private:
@@ -24,7 +24,7 @@ private:
     const uint step;
     uint frequency;
 
-private slots:
+private Q_SLOTS:
     void onSelected(uint frequency);
 };
 

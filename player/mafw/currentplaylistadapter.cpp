@@ -57,5 +57,5 @@ void CurrentPlaylistAdapter::onPlaylistChanged(GObject *playlist)
 {
     this->bind(MAFW_PLAYLIST(playlist));
 
-    emit contentsChanged(-1, 0, 0);
+    Q_EMIT contentsChanged(-1, 0, 0);
 }

@@ -14,7 +14,7 @@ LyricsProvidersDialog::LyricsProvidersDialog(QString state, QWidget *parent) :
     QMap<QString,QString> availableProviders = LyricsManager::listProviders();
     QStringList configList = state.split(',', QString::SkipEmptyParts);
 
-    foreach(QString config, configList) {
+    Q_FOREACH(QString config, configList) {
         bool active;
 
         if (active = config.startsWith('+'))
@@ -26,7 +26,7 @@ LyricsProvidersDialog::LyricsProvidersDialog(QString state, QWidget *parent) :
         availableProviders.remove(config);
     }
 
-    foreach (QString provider, availableProviders.keys())
+    Q_FOREACH (QString provider, availableProviders.keys())
         addProvider(provider, availableProviders.value(provider), false);
 
     if (ui->providersList->count()) {

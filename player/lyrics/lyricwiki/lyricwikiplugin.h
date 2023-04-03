@@ -24,7 +24,7 @@ private:
 
     QString& prepareName(QString &name);
 
-private slots:
+private Q_SLOTS:
     void onArtistReplyReceived();
     void onSongReplyReceived();
 };

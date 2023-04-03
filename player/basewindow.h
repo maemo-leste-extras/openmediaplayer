@@ -1,9 +1,6 @@
 #ifndef BASEWINDOW_H
 #define BASEWINDOW_H
 
-#include <glib.h>
-#include <gio/gio.h>
-
 #include <QMainWindow>
 
 #include <QShortcut>
@@ -22,7 +19,7 @@ public:
 private:
     //void closeChildren();
 
-private slots:
+private Q_SLOTS:
     void showWindowMenu();
 };
 

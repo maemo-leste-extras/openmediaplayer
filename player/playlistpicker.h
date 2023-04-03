@@ -1,6 +1,9 @@
 #ifndef PLAYLISTPICKER_H
 #define PLAYLISTPICKER_H
 
+#include "mafw/mafwplaylistadapter.h"
+#include "mafw/mafwplaylistmanageradapter.h"
+
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QPushButton>
@@ -11,9 +14,6 @@
 #include "ui_playlistpicker.h"
 #include "includes.h"
 #include "confirmdialog.h"
-
-#include "mafw/mafwplaylistadapter.h"
-#include "mafw/mafwplaylistmanageradapter.h"
 
 namespace Ui {
     class PlaylistPicker;
@@ -37,7 +37,7 @@ private:
     QDialog *createPlaylistDialog;
     QLineEdit *playlistNameEdit;
 
-private slots:
+private Q_SLOTS:
     void onCreatePlaylist();
     void onCreatePlaylistAccepted();
     void onItemActivated(QListWidgetItem *item);

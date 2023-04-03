@@ -59,9 +59,9 @@ void Maemo5DeviceEvents::onScreenLocked(QString state)
 #endif
     this->screenState = state;
     if (state.endsWith("unlocked"))
-        emit screenLocked(false);
+        Q_EMIT screenLocked(false);
     else
-        emit screenLocked(true);
+        Q_EMIT screenLocked(true);
 }
 
 bool Maemo5DeviceEvents::isScreenLocked()

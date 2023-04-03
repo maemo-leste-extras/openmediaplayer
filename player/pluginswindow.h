@@ -10,7 +10,7 @@ class PluginsWindow : public BrowserWindow
 public:
     PluginsWindow(QWidget *parent, const QHash<QString,QString> &sources);
 
-private slots:
+private Q_SLOTS:
     void onItemActivated(const QModelIndex &index);
 };
 

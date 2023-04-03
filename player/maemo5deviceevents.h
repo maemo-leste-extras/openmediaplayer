@@ -16,7 +16,7 @@ public:
     static Maemo5DeviceEvents* acquire();
     bool isScreenLocked();
 
-signals:
+Q_SIGNALS:
     void screenLocked(bool);
 
 private:
@@ -25,7 +25,7 @@ private:
     void connectSignals();
     QString screenState;
 
-private slots:
+private Q_SLOTS:
     void onScreenLocked(QString);
     void watcherFinished(QDBusPendingCallWatcher *);
 

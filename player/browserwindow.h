@@ -1,6 +1,8 @@
 #ifndef BROWSERWINDOW_H
 #define BROWSERWINDOW_H
 
+#include "mafw/mafwregistryadapter.h"
+
 #include "basewindow.h"
 
 #include <QTimer>
@@ -10,8 +12,6 @@
 #include "includes.h"
 #include "rotator.h"
 #include "headerawareproxymodel.h"
-
-#include "mafw/mafwregistryadapter.h"
 
 namespace Ui {
     class BrowserWindow;
@@ -36,7 +36,7 @@ protected:
     void keyPressEvent(QKeyEvent *e);
     void keyReleaseEvent(QKeyEvent *e);
 
-protected slots:
+protected Q_SLOTS:
     void orientationInit();
     void onOrientationChanged(int w, int h);
     void onSearchRequested();

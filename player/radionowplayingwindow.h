@@ -1,6 +1,8 @@
 #ifndef RADIONOWPLAYINGWINDOW_H
 #define RADIONOWPLAYINGWINDOW_H
 
+#include "mafw/mafwregistryadapter.h"
+
 #include "basewindow.h"
 
 #include <QTimer>
@@ -21,8 +23,6 @@
 #include "metadatadialog.h"
 #include "mirror.h"
 
-#include "mafw/mafwregistryadapter.h"
-
 namespace Ui {
     class RadioNowPlayingWindow;
 }
@@ -35,7 +35,7 @@ public:
     explicit RadioNowPlayingWindow(QWidget *parent = 0, MafwRegistryAdapter *mafwRegistry = 0);
     ~RadioNowPlayingWindow();
 
-public slots:
+public Q_SLOTS:
     void play();
 
 private:
@@ -68,7 +68,7 @@ private:
     QString title;
     QString uri;
 
-private slots:
+private Q_SLOTS:
     void togglePlayback();
     void toggleVolumeSlider();
     void onVolumeSliderPressed();

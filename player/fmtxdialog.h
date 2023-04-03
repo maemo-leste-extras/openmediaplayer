@@ -23,7 +23,7 @@ private:
     void keyPressEvent(QKeyEvent *e);
     void showError(const QString &message);
 
-private slots:
+private Q_SLOTS:
     void onOrientationChanged(int w, int h);
     void onStateToggled(bool enabled);
     void accept();

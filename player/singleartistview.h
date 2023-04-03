@@ -1,9 +1,9 @@
 #ifndef SINGLEARTISTVIEW_H
 #define SINGLEARTISTVIEW_H
 
-#include "browserwindow.h"
-
 #include "mafw/mafwregistryadapter.h"
+
+#include "browserwindow.h"
 
 #include "includes.h"
 #include "confirmdialog.h"
@@ -34,7 +34,7 @@ private:
     void notifyOnAddedToNowPlaying(int songCount);
     void updateSongCount();
 
-private slots:
+private Q_SLOTS:
     void onArtistAddFinished(uint token, int count);
     void onAlbumAddFinished(uint token, int count);
     void browseAllAlbums(uint browseId, int remainingCount, uint, QString, GHashTable *metadata);

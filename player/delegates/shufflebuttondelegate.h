@@ -23,7 +23,7 @@ public:
 private:
     QMaemo5ValueButton *button;
 
-private slots:
+private Q_SLOTS:
     void onActivated(QModelIndex index);
 };
 

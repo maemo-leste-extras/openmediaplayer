@@ -473,7 +473,7 @@ bool NowPlayingWindow::eventFilter(QObject *object, QEvent *event)
 
         else if (event->type() == QEvent::Drop) {
             static_cast<QDropEvent*>(event)->setDropAction(Qt::MoveAction);
-            emit itemDropped(ui->songList->currentItem(), ui->songList->currentRow());
+            Q_EMIT itemDropped(ui->songList->currentItem(), ui->songList->currentRow());
             dragInProgress = false;
         }
 
@@ -1295,5 +1295,5 @@ void NowPlayingWindow::closeEvent(QCloseEvent *)
 
     positionTimer->stop();
 
-    emit hidden();
+    Q_EMIT hidden();
 }

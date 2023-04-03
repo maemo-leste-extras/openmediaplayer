@@ -1,14 +1,14 @@
 #ifndef SHAREDIALOG_H
 #define SHAREDIALOG_H
 
+#include "mafw/mafwsourceadapter.h"
+
 #include <QDialog>
 #include <QDBusInterface>
 #include <QKeyEvent>
 #include <QTimer>
 
 #include "ui_sharedialog.h"
-
-#include "mafw/mafwsourceadapter.h"
 
 namespace Ui {
     class ShareDialog;
@@ -34,7 +34,7 @@ private:
     void shareViaBluetooth();
     void shareViaEmail();
 
-private slots:
+private Q_SLOTS:
     void setProgressIndicator();
     void onUriReceived(QString objectId, QString uri);
     void onEmailClicked();

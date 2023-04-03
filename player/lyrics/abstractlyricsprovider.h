@@ -23,7 +23,7 @@ public:
     QNetworkAccessManager *nam;
     QNetworkReply *reply;
 
-signals:
+Q_SIGNALS:
     void fetched(QString lyrics);
     void error(QString message);
 };

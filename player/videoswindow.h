@@ -1,6 +1,9 @@
 #ifndef VIDEOSWINDOW_H
 #define VIDEOSWINDOW_H
 
+#include "mafw/mafwregistryadapter.h"
+#include <libmafw/mafw-source.h>
+
 #include "browserwindow.h"
 
 #include <QActionGroup>
@@ -12,9 +15,6 @@
 #include "videonowplayingwindow.h"
 #include "delegates/thumbnailitemdelegate.h"
 #include "delegates/mediawithicondelegate.h"
-
-#include "mafw/mafwregistryadapter.h"
-#include <libmafw/mafw-source.h>
 
 class VideosWindow : public BrowserWindow
 {
@@ -35,7 +35,7 @@ private:
     CurrentPlaylistAdapter *playlist;
     unsigned int browseId;
 
-private slots:
+private Q_SLOTS:
     void onSourceReady();
     void onShareClicked();
     void onDeleteClicked();

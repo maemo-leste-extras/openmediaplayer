@@ -22,7 +22,7 @@ public:
 private:
     Ui::OpenDialog *ui;
 
-private slots:
+private Q_SLOTS:
     void onButtonClicked();
 };
 

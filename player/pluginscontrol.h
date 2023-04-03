@@ -10,14 +10,14 @@ class PluginsControl : public QAction
 public:
     PluginsControl(QWidget *parent);
 
-signals:
+Q_SIGNALS:
     void childOpened();
     void childClosed();
 
 private:
     QHash<QString,QString> sources;
 
-private slots:
+private Q_SLOTS:
     void onSourceAdded(const QString &uuid, const QString &name);
     void onSourceRemoved(const QString &uuid);
     void openWindow();

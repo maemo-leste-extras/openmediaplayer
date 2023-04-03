@@ -1,12 +1,12 @@
 #ifndef PLAYLISTQUERYMANAGER_H
 #define PLAYLISTQUERYMANAGER_H
 
+#include "mafw/mafwplaylistadapter.h"
+
 #include "includes.h"
 #include <QObject>
 #include <QList>
 #include <QDebug>
-
-#include "mafw/mafwplaylistadapter.h"
 
 class PlaylistQueryManager : public QObject
 {
@@ -19,10 +19,10 @@ public:
     void itemsInserted(int from, int amount);
     void itemsRemoved(int from, int amount);
 
-signals:
+Q_SIGNALS:
     void gotItem(QString objectId, GHashTable *metadata, uint index);
 
-public slots:
+public Q_SLOTS:
     void setPriority(int position);
 
 private:
@@ -36,7 +36,7 @@ private:
     int priority;
     int* rangeInProgress;
 
-private slots:
+private Q_SLOTS:
     void onItemReceived(QString objectId, GHashTable *metadata, uint index, gpointer op);
     void onRequestComplete(gpointer op);
 };

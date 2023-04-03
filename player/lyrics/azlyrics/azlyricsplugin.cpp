@@ -29,7 +29,7 @@ void AZLyricsPlugin::abort()
 void AZLyricsPlugin::onReplyReceived()
 {
     if (reply->error() != QNetworkReply::NoError) {
-        emit error(reply->errorString());
+        Q_EMIT error(reply->errorString());
         reply->deleteLater();
         return;
     }
@@ -46,8 +46,8 @@ void AZLyricsPlugin::onReplyReceived()
         QTextDocument lyrics;
         lyrics.setHtml(QString::fromUtf8(data));
 
-        emit fetched(lyrics.toPlainText());
+        Q_EMIT fetched(lyrics.toPlainText());
     } else {
-        emit error("The lyrics for this song are missing on AZLyrics.");
+        Q_EMIT error("The lyrics for this song are missing on AZLyrics.");
     }
 }

@@ -9,9 +9,9 @@ void OMPLegacyPlugin::fetch(QString artist, QString title)
     file.close();
 
     if (lyrics.isEmpty())
-        emit error("The lyrics for this song are missing from OMP legacy cache.");
+        Q_EMIT error("The lyrics for this song are missing from OMP legacy cache.");
     else
-        emit fetched(lyrics);
+        Q_EMIT fetched(lyrics);
 }
 
 QString OMPLegacyPlugin::cleanItem(QString item)

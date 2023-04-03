@@ -1,6 +1,9 @@
 #ifndef MUSICWINDOW_H
 #define MUSICWINDOW_H
 
+#include "mafw/mafwregistryadapter.h"
+#include "mafw/mafwplaylistmanageradapter.h"
+
 #include "basewindow.h"
 
 #include <QDir>
@@ -26,9 +29,6 @@
 #include "ui_musicwindow.h"
 #include "includes.h"
 
-#include "mafw/mafwregistryadapter.h"
-#include "mafw/mafwplaylistmanageradapter.h"
-
 namespace Ui {
     class MusicWindow;
 }
@@ -43,7 +43,7 @@ public:
     bool eventFilter(QObject *obj, QEvent *e);
     void refreshPlaylistView();
 
-signals:
+Q_SIGNALS:
     void hidden();
 
 private:
@@ -91,7 +91,7 @@ private:
     QListView* currentList();
     void notifyOnAddedToNowPlaying(int songCount);
 
-private slots:
+private Q_SLOTS:
     void onContextMenuRequested(const QPoint &pos = QPoint(35,35));
     void onRingtoneClicked();
     void onShareClicked();

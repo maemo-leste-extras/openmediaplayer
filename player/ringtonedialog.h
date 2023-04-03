@@ -1,13 +1,13 @@
 #ifndef RINGTONEDIALOG_H
 #define RINGTONEDIALOG_H
 
+#include "mafw/mafwsourceadapter.h"
+
 #include "confirmdialog.h"
 
 #include <QDBusInterface>
 #include <QUrl>
 #include <QMaemo5InformationBox>
-
-#include "mafw/mafwsourceadapter.h"
 
 class RingtoneDialog : public ConfirmDialog
 {
@@ -25,7 +25,7 @@ private:
 
     void setRingtone();
 
-private slots:
+private Q_SLOTS:
     void done(int r);
     void onUriReceived(QString objectId, QString uri);
 };

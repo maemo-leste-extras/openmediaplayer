@@ -106,5 +106,5 @@ void FMTXInterface::setProperty(const QString &name, const QVariant &value)
 
 void FMTXInterface::onPropertyChanged()
 {
-    emit propertyChanged();
+    Q_EMIT propertyChanged();
 }

@@ -1,14 +1,16 @@
 #ifndef METADATAWATCHER_H
 #define METADATAWATCHER_H
 
+#include "mafw/mafwregistryadapter.h"
+#include "mafw/mafwutils.h"
+
 #include <QObject>
 #include <QImage>
 #include <QCryptographicHash>
 
 #include "includes.h"
 
-#include "mafw/mafwregistryadapter.h"
-#include "mafw/mafwutils.h"
+#include <QObject>
 
 class MetadataWatcher: public QObject
 {
@@ -20,7 +22,7 @@ public:
     MafwSourceAdapter* currentSource();
     QMap<QString,QVariant> metadata();
 
-signals:
+Q_SIGNALS:
     void metadataReady();
     void metadataChanged(QString key, QVariant value);
 
@@ -41,7 +43,7 @@ private:
 
     static QVariant toQVariant(GValue *v);
 
-private slots:
+private Q_SLOTS:
     void onStatusReceived(MafwPlaylist *, uint index, MafwPlayState, QString objectId);
 
     void onMediaChanged(int, QString objectId);

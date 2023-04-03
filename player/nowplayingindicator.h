@@ -1,7 +1,7 @@
 #ifndef NOWPLAYINGINDICATOR_H
 #define NOWPLAYINGINDICATOR_H
 
-#include <gio/gio.h>
+#include "mafw/mafwregistryadapter.h"
 
 #include <QWidget>
 #include <QPainter>
@@ -9,8 +9,6 @@
 #include <QVector>
 #include <QTimer>
 #include <QMouseEvent>
-
-#include "mafw/mafwregistryadapter.h"
 
 #include "maemo5deviceevents.h"
 
@@ -37,7 +35,7 @@ public:
 
     void setRegistry(MafwRegistryAdapter *mafwRegistry = 0);
 
-public slots:
+public Q_SLOTS:
     void togglePlayback();
     void autoSetVisibility();
     void inhibit();
@@ -73,7 +71,7 @@ private:
     MafwPlayState mafwState;
     Maemo5DeviceEvents *deviceEvents;
 
-private slots:
+private Q_SLOTS:
     void onTkLockChanged(bool);
     void onStateChanged(MafwPlayState state);
     void onStatusReceived(MafwPlaylist *, uint, MafwPlayState state);

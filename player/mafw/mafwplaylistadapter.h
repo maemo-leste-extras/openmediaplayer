@@ -1,9 +1,9 @@
 #ifndef MAFWPLAYLISTADAPTER_H
 #define MAFWPLAYLISTADAPTER_H
 
-#include <QObject>
-
 #include <libmafw/mafw-playlist.h>
+
+#include <QObject>
 
 class MafwPlaylistAdapter : public QObject
 {
@@ -40,7 +40,7 @@ public:
     gpointer getItems(uint first, uint last);
     void cancelQuery(gpointer op);
 
-signals:
+Q_SIGNALS:
     // Exposed signals
     void contentsChanged(uint from, uint removed, uint replaced);
     void itemMoved(uint from, uint to);

@@ -8,9 +8,9 @@ void MaeLyricaPlugin::fetch(QString artist, QString title)
                    .toString());
 
     if (lyrics.isEmpty())
-        emit error("The lyrics for this song are missing from MaeLyrica cache.");
+        Q_EMIT error("The lyrics for this song are missing from MaeLyrica cache.");
     else
-        emit fetched(lyrics.toPlainText());
+        Q_EMIT fetched(lyrics.toPlainText());
 }
 
 QString MaeLyricaPlugin::cleanItem(QString item)

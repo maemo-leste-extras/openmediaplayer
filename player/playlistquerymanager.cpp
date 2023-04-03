@@ -147,7 +147,7 @@ void PlaylistQueryManager::onItemReceived(QString objectId, GHashTable *metadata
 {
     if (op != getItemsOp) return;
 
-    emit gotItem(objectId, metadata, index);
+    Q_EMIT gotItem(objectId, metadata, index);
 }
 
 void PlaylistQueryManager::onRequestComplete(gpointer op)

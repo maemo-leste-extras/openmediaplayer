@@ -15,7 +15,7 @@ public:
 
     static int khzWidth(uint step);
 
-signals:
+Q_SIGNALS:
     void selected(uint frequency);
 
 private:
@@ -23,7 +23,7 @@ private:
 
     uint step;
 
-private slots:
+private Q_SLOTS:
     void onOrientationChanged(int w, int h);
     void accept();
 };

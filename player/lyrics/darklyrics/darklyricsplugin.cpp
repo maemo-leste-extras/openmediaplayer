@@ -29,7 +29,7 @@ void DarkLyricsPlugin::abort()
 void DarkLyricsPlugin::onArtistReplyReceived()
 {
     if (reply->error() != QNetworkReply::NoError) {
-        emit error(reply->errorString());
+        Q_EMIT error(reply->errorString());
         reply->deleteLater();
         return;
     }
@@ -51,14 +51,14 @@ void DarkLyricsPlugin::onArtistReplyReceived()
         reply = nam->get(request);
         connect(reply, SIGNAL(finished()), this, SLOT(onAlbumReplyReceived()));
     } else {
-        emit error("The lyrics for this song are missing on Dark Lyrics.");
+        Q_EMIT error("The lyrics for this song are missing on Dark Lyrics.");
     }
 }
 
 void DarkLyricsPlugin::onAlbumReplyReceived()
 {
     if (reply->error() != QNetworkReply::NoError) {
-        emit error(reply->errorString());
+        Q_EMIT error(reply->errorString());
         reply->deleteLater();
         return;
     }
@@ -78,9 +78,9 @@ void DarkLyricsPlugin::onAlbumReplyReceived()
         QTextDocument lyrics;
         lyrics.setHtml(data.mid(i, j-i));
 
-        emit fetched(lyrics.toPlainText());
+        Q_EMIT fetched(lyrics.toPlainText());
     } else {
-        emit error("The lyrics for this song are missing on Dark Lyrics.");
+        Q_EMIT error("The lyrics for this song are missing on Dark Lyrics.");
     }
 }
 

@@ -35,9 +35,9 @@ void LyricsDBPlugin::onReplyReceived()
             { lyrics = xml.readElementText(); break; }
 
     if (lyrics.isEmpty())
-        emit error("The lyrics for this song are missing on LyricsDB.");
+        Q_EMIT error("The lyrics for this song are missing on LyricsDB.");
     else
-        emit fetched(lyrics);
+        Q_EMIT fetched(lyrics);
 
 
 }

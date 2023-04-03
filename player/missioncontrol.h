@@ -1,6 +1,8 @@
 #ifndef MISSIONCONTROL_H
 #define MISSIONCONTROL_H
 
+#include "mafw/mafwregistryadapter.h"
+
 #include <QObject>
 
 #include <QDBusConnection>
@@ -11,8 +13,6 @@
 #include "playbackmanager.h"
 #include "lyricsmanager.h"
 #include "sleeper.h"
-
-#include "mafw/mafwregistryadapter.h"
 
 class MissionControl : public QObject
 {
@@ -58,7 +58,7 @@ private:
     void togglePlayback();
     void handlePhoneButton();
 
-private slots:
+private Q_SLOTS:
     void onMediaChanged();
     void onMetadataReady();
     void onMetadataChanged(QString key, QVariant value);

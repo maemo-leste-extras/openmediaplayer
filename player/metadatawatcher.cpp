@@ -48,7 +48,7 @@ void MetadataWatcher::setMetadataFromRenderer(QString key, QVariant value)
             QVariant &currentValue = currentMetadata[key];
             if (currentValue.isNull()) {
                 currentValue = value;
-                emit metadataChanged(key, value);
+                Q_EMIT metadataChanged(key, value);
             }
         } else {
             QVariant &backupValue = backupMetadata[key];
@@ -58,7 +58,7 @@ void MetadataWatcher::setMetadataFromRenderer(QString key, QVariant value)
             QVariant &currentValue = currentMetadata[key];
             if (currentValue != value) {
                 currentValue = value;
-                emit metadataChanged(key, value);
+                Q_EMIT metadataChanged(key, value);
             }
         }
         return;
@@ -71,7 +71,7 @@ void MetadataWatcher::setMetadataFromRenderer(QString key, QVariant value)
     QVariant &currentValue = currentMetadata[key];
     if (currentValue != value) {
         currentValue = value;
-        emit metadataChanged(key, value);
+        Q_EMIT metadataChanged(key, value);
     }
 }
 
@@ -86,7 +86,7 @@ void MetadataWatcher::setMetadataFromSource(QString key, QVariant value)
             QVariant &currentValue = currentMetadata[key];
             if (currentValue != value) {
                 currentValue = value;
-                emit metadataChanged(key, currentValue);
+                Q_EMIT metadataChanged(key, currentValue);
             }
         } else {
             backupMetadata[key] = value;
@@ -101,7 +101,7 @@ void MetadataWatcher::setMetadataFromSource(QString key, QVariant value)
         QVariant &currentValue = currentMetadata[key];
         if (currentValue.isNull()) {
             currentValue = value;
-            emit metadataChanged(key, value);
+            Q_EMIT metadataChanged(key, value);
         }
     } else {
         QVariant &backupValue = backupMetadata[key];
@@ -131,7 +131,7 @@ void MetadataWatcher::onMediaChanged(int, QString objectId)
 
     // Reset the URI as soon as possible to avoid album art misdetection
     if (currentMetadata.remove(MAFW_METADATA_KEY_URI))
-        emit metadataChanged(MAFW_METADATA_KEY_URI, QVariant());
+        Q_EMIT metadataChanged(MAFW_METADATA_KEY_URI, QVariant());
 
     mafwRenderer->getCurrentMetadata();
 
@@ -161,7 +161,7 @@ void MetadataWatcher::onSourceMetadataReceived(QString objectId, GHashTable *met
                 QVariant &currentValue = currentMetadata[keyName];
                 if (currentValue != pausedPoition) {
                     currentValue = pausedPoition;
-                    emit metadataChanged(keyName, currentValue);
+                    Q_EMIT metadataChanged(keyName, currentValue);
                 }
             } else {
                 backupMetadata[keyName] = pausedPoition;
@@ -207,36 +207,36 @@ void MetadataWatcher::onSourceMetadataReceived(QString objectId, GHashTable *met
         QMap<QString,QVariant>::const_iterator currentIterator = currentMetadata.begin();
         QMap<QString,QVariant>::const_iterator backupIterator = backupMetadata.begin();
 
-        // Compare with current metadata and emit differences
+        // Compare with current metadata and Q_EMIT differences
         while (true) {
             if (currentIterator == currentMetadata.end()) {
                 while (backupIterator != backupMetadata.end()) {
                     // There are some additional items in backup metadata
-                    emit metadataChanged(backupIterator.key(), backupIterator.value());
+                    Q_EMIT metadataChanged(backupIterator.key(), backupIterator.value());
                     ++backupIterator;
                 }
                 break;
             } else if (backupIterator == backupMetadata.end()) {
                 while (currentIterator != currentMetadata.end()) {
                     // There is something missing from backup metadata
-                    emit metadataChanged(currentIterator.key(), QVariant());
+                    Q_EMIT metadataChanged(currentIterator.key(), QVariant());
                     ++currentIterator;
                 }
                 break;
             } else {
                 if (currentIterator.key() > backupIterator.key()) {
                     // There are some additional items in backup metadata
-                    emit metadataChanged(backupIterator.key(), backupIterator.value());
+                    Q_EMIT metadataChanged(backupIterator.key(), backupIterator.value());
                     ++backupIterator;
                 }
                 else if (backupIterator.key() > currentIterator.key()) {
                     // There is something missing from backup metadata
-                    emit metadataChanged(currentIterator.key(), QVariant());
+                    Q_EMIT metadataChanged(currentIterator.key(), QVariant());
                     ++currentIterator;
                 }
                 else {
                     if (currentIterator.value() != backupIterator.value())
-                        emit metadataChanged(backupIterator.key(), backupIterator.value());
+                        Q_EMIT metadataChanged(backupIterator.key(), backupIterator.value());
                     ++currentIterator;
                     ++backupIterator;
                 }
@@ -248,7 +248,7 @@ void MetadataWatcher::onSourceMetadataReceived(QString objectId, GHashTable *met
 
         sourceMetadataPresent = true;
 
-        emit metadataReady();
+        Q_EMIT metadataReady();
     }
 }
 

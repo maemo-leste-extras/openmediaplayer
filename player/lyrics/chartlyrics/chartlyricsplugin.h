@@ -19,7 +19,7 @@ public:
     void fetch(QString artist, QString title);
     void abort();
 
-private slots:
+private Q_SLOTS:
     void onReplyReceived();
 };
 

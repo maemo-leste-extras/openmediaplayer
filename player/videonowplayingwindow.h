@@ -1,7 +1,8 @@
 #ifndef VIDEONOWPLAYINGWINDOW_H
 #define VIDEONOWPLAYINGWINDOW_H
 
-#include <gio/gio.h>
+#include "mafw/mafwregistryadapter.h"
+#include "mafw/mafwplaylistmanageradapter.h"
 
 #include <QMainWindow>
 #include <QIcon>
@@ -31,9 +32,6 @@
 #include <QSpacerItem>
 #include "maemo5deviceevents.h"
 #include "sharedialog.h"
-
-#include "mafw/mafwregistryadapter.h"
-#include "mafw/mafwplaylistmanageradapter.h"
 
 namespace Ui {
     class VideoNowPlayingWindow;
@@ -103,7 +101,7 @@ private:
     int videoHeight;
     static QColor colorKey() { return QColor(3, 13, 3); }
 
-private slots:
+private Q_SLOTS:
     void setFitToScreen(bool enable);
     void setContinuousPlayback(bool enable);
     void toggleOverlay();

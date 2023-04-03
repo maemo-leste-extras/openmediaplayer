@@ -2,6 +2,7 @@
 #define MAFWPLAYLISTMANAGERADAPTER_H
 
 #include <QObject>
+
 #include <libmafw-shared/mafw-playlist-manager.h>
 
 class MafwPlaylistManagerAdapter : public QObject
@@ -20,10 +21,10 @@ public:
     void deletePlaylist(QString playlistName);
     static void import_cb(MafwPlaylistManager *, guint import_id, MafwProxyPlaylist *playlist, gpointer user_data, const GError *);
 
-signals:
+Q_SIGNALS:
     void playlistImported(MafwProxyPlaylist *playlist, guint import_id);
 
-public slots:
+public Q_SLOTS:
 
 private:
     explicit MafwPlaylistManagerAdapter();

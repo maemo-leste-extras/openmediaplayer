@@ -1,6 +1,8 @@
 #ifndef UPNPVIEW_H
 #define UPNPVIEW_H
 
+#include "mafw/mafwregistryadapter.h"
+
 #include "browserwindow.h"
 
 #include "includes.h"
@@ -10,8 +12,6 @@
 #include "videonowplayingwindow.h"
 #include "delegates/mediawithicondelegate.h"
 
-#include "mafw/mafwregistryadapter.h"
-
 class UpnpView : public BrowserWindow
 {
     Q_OBJECT
@@ -20,10 +20,10 @@ public:
     explicit UpnpView(QWidget *parent = 0, MafwRegistryAdapter *mafwRegistry = 0, MafwSourceAdapter *source = 0);
     ~UpnpView();
 
-public slots:
+public Q_SLOTS:
     void browseObjectId(QString objectId);
 
-private slots:
+private Q_SLOTS:
     void onBrowseResult(uint browseId, int remainingCount, uint, QString objectId, GHashTable *metadata);
     void onContextMenuRequested(const QPoint &pos = QPoint(35,35));
     void onItemActivated(QModelIndex index);

@@ -2,7 +2,6 @@
 #define CURRENTPLAYLISTADAPTER_H
 
 #include "mafw/mafwplaylistadapter.h"
-
 #include "mafw/mafwrendereradapter.h"
 
 class CurrentPlaylistAdapter : public MafwPlaylistAdapter
@@ -23,7 +22,7 @@ private:
 
     void assignPlaylist(const char *playlistName);
 
-private slots:
+private Q_SLOTS:
     void onStatusReceived(MafwPlaylist *playlist);
     void onPlaylistChanged(GObject *playlist);
 };

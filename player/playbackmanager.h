@@ -1,11 +1,11 @@
 #ifndef PLAYBACKMANAGER_H
 #define PLAYBACKMANAGER_H
 
+#include "mafw/mafwrendereradapter.h"
+
 #include <QObject>
 
 #include <libplayback/playback.h>
-
-#include "mafw/mafwrendereradapter.h"
 
 class PlaybackManager : public QObject
 {
@@ -26,7 +26,7 @@ private:
     static void requestHandler(pb_playback_t *, pb_state_e, pb_req_t *, void *);
     static void requestCallback(pb_playback_t *pb, pb_state_e granted_state, const char *reason, pb_req_t *req, void *);
 
-private slots:
+private Q_SLOTS:
     void initialize(MafwPlaylist *, uint, MafwPlayState state);
     void onStateChanged(MafwPlayState state);
     void onPlayExecuted(QString error);

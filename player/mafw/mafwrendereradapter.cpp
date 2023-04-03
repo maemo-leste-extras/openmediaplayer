@@ -52,7 +52,7 @@ void MafwRendererAdapter::bind(MafwRenderer *renderer)
         disconnect(MafwRegistryAdapter::get(), SIGNAL(rendererAdded(MafwRenderer*)), this, SLOT(onRendererAdded(MafwRenderer*)));
         connect(MafwRegistryAdapter::get(), SIGNAL(rendererRemoved(MafwRenderer*)), this, SLOT(onRendererRemoved(MafwRenderer*)));
 
-        emit ready();
+        Q_EMIT ready();
     } else {
         // Unbind
         g_signal_handlers_disconnect_matched(this->renderer, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, this);
@@ -217,18 +217,18 @@ void MafwRendererAdapter::setColorKey(int colorKey)
 
 void MafwRendererAdapter::onBufferingInfo(MafwRenderer *, gfloat status, gpointer self)
 {
-    emit static_cast<MafwRendererAdapter*>(self)->bufferingInfo(status);
+    Q_EMIT static_cast<MafwRendererAdapter*>(self)->bufferingInfo(status);
 }
 
 void MafwRendererAdapter::onMediaChanged(MafwRenderer *, gint index, gchar *objectId, gpointer self)
 {
-    emit static_cast<MafwRendererAdapter*>(self)->mediaChanged(index, QString::fromUtf8(objectId));
+    Q_EMIT static_cast<MafwRendererAdapter*>(self)->mediaChanged(index, QString::fromUtf8(objectId));
 }
 
 void MafwRendererAdapter::onMetadataChanged(MafwRenderer*, gchar *name, GValueArray *value, gpointer self)
 {
     if (value->n_values == 1) {
-        emit static_cast<MafwRendererAdapter*>(self)->metadataChanged(name, MafwUtils::toQVariant(g_value_array_get_nth(value, 0)));
+        Q_EMIT static_cast<MafwRendererAdapter*>(self)->metadataChanged(name, MafwUtils::toQVariant(g_value_array_get_nth(value, 0)));
     } else {
         qDebug() << "Unsupported metadata count" << value->n_values << "for" << name;
     }
@@ -236,29 +236,29 @@ void MafwRendererAdapter::onMetadataChanged(MafwRenderer*, gchar *name, GValueAr
 
 void MafwRendererAdapter::onPlaylistChanged(MafwRenderer *, GObject *playlist, gpointer self)
 {
-    emit static_cast<MafwRendererAdapter*>(self)->playlistChanged(playlist);
+    Q_EMIT static_cast<MafwRendererAdapter*>(self)->playlistChanged(playlist);
 }
 
 void MafwRendererAdapter::onStateChanged(MafwRenderer *, gint state, gpointer self)
 {
-    emit static_cast<MafwRendererAdapter*>(self)->stateChanged(static_cast<MafwPlayState>(state));
+    Q_EMIT static_cast<MafwRendererAdapter*>(self)->stateChanged(static_cast<MafwPlayState>(state));
 }
 
 void MafwRendererAdapter::onError(MafwExtension *, guint domain, gint code, gchar *message, gpointer self)
 {
-    emit static_cast<MafwRendererAdapter*>(self)->error(domain, code, QString::fromUtf8(message));
+    Q_EMIT static_cast<MafwRendererAdapter*>(self)->error(domain, code, QString::fromUtf8(message));
 }
 
 void MafwRendererAdapter::onPropertyChanged(MafwExtension *, gchar *name, GValue *value, gpointer self)
 {
-    emit static_cast<MafwRendererAdapter*>(self)->propertyChanged(name, MafwUtils::toQVariant(value));
+    Q_EMIT static_cast<MafwRendererAdapter*>(self)->propertyChanged(name, MafwUtils::toQVariant(value));
 }
 
 //--- Callbacks ----------------------------------------------------------------
 
 void MafwRendererAdapter::onPlayExecuted(MafwRenderer *, gpointer self, const GError *error)
 {
-    emit static_cast<MafwRendererAdapter*>(self)->playExecuted(MafwUtils::toQString(error));
+    Q_EMIT static_cast<MafwRendererAdapter*>(self)->playExecuted(MafwUtils::toQString(error));
 
 #ifdef MAFW_WORKAROUNDS
     // MAFW behaves inconsistently when it comes to assigning items to
@@ -285,60 +285,60 @@ void MafwRendererAdapter::onPlayExecuted(MafwRenderer *, gpointer self, const GE
 
 void MafwRendererAdapter::onPlayObjectExecuted(MafwRenderer *, gpointer self, const GError *error)
 {
-    emit static_cast<MafwRendererAdapter*>(self)->playObjectExecuted(MafwUtils::toQString(error));
+    Q_EMIT static_cast<MafwRendererAdapter*>(self)->playObjectExecuted(MafwUtils::toQString(error));
 }
 
 void MafwRendererAdapter::onPlayUriExecuted(MafwRenderer *, gpointer self, const GError *error)
 {
-    emit static_cast<MafwRendererAdapter*>(self)->playUriExecuted(MafwUtils::toQString(error));
+    Q_EMIT static_cast<MafwRendererAdapter*>(self)->playUriExecuted(MafwUtils::toQString(error));
 }
 
 void MafwRendererAdapter::onStopExecuted(MafwRenderer *, gpointer self, const GError *error)
 {
-    emit static_cast<MafwRendererAdapter*>(self)->stopExecuted(MafwUtils::toQString(error));
+    Q_EMIT static_cast<MafwRendererAdapter*>(self)->stopExecuted(MafwUtils::toQString(error));
 }
 
 void MafwRendererAdapter::onPauseExecuted(MafwRenderer *, gpointer self, const GError *error)
 {
-    emit static_cast<MafwRendererAdapter*>(self)->pauseExecuted(MafwUtils::toQString(error));
+    Q_EMIT static_cast<MafwRendererAdapter*>(self)->pauseExecuted(MafwUtils::toQString(error));
 }
 
 void MafwRendererAdapter::onResumeExecuted(MafwRenderer *, gpointer self, const GError *error)
 {
-    emit static_cast<MafwRendererAdapter*>(self)->resumeExecuted(MafwUtils::toQString(error));
+    Q_EMIT static_cast<MafwRendererAdapter*>(self)->resumeExecuted(MafwUtils::toQString(error));
 }
 
 void MafwRendererAdapter::onStatusReceived(MafwRenderer *, MafwPlaylist *playlist, guint index, MafwPlayState state, const gchar *objectId, gpointer self, const GError *error)
 {
-    emit static_cast<MafwRendererAdapter*>(self)->statusReceived(playlist, index, state, QString::fromUtf8(objectId), MafwUtils::toQString(error));
+    Q_EMIT static_cast<MafwRendererAdapter*>(self)->statusReceived(playlist, index, state, QString::fromUtf8(objectId), MafwUtils::toQString(error));
 }
 
 void MafwRendererAdapter::onNextExecuted(MafwRenderer *, gpointer self, const GError *error)
 {
-    emit static_cast<MafwRendererAdapter*>(self)->nextExecuted(MafwUtils::toQString(error));
+    Q_EMIT static_cast<MafwRendererAdapter*>(self)->nextExecuted(MafwUtils::toQString(error));
 }
 
 void MafwRendererAdapter::onPreviousExecuted(MafwRenderer *, gpointer self, const GError *error)
 {
-    emit static_cast<MafwRendererAdapter*>(self)->previousExecuted(MafwUtils::toQString(error));
+    Q_EMIT static_cast<MafwRendererAdapter*>(self)->previousExecuted(MafwUtils::toQString(error));
 }
 
 void MafwRendererAdapter::onGotoIndexExecuted(MafwRenderer *, gpointer self, const GError *error)
 {
-    emit static_cast<MafwRendererAdapter*>(self)->gotoIndexExecuted(MafwUtils::toQString(error));
+    Q_EMIT static_cast<MafwRendererAdapter*>(self)->gotoIndexExecuted(MafwUtils::toQString(error));
 }
 
 void MafwRendererAdapter::onPositionReceived(MafwRenderer *, gint position, gpointer self, const GError *error)
 {
-    emit static_cast<MafwRendererAdapter*>(self)->positionReceived(position, MafwUtils::toQString(error));
+    Q_EMIT static_cast<MafwRendererAdapter*>(self)->positionReceived(position, MafwUtils::toQString(error));
 }
 
 void MafwRendererAdapter::onCurrentMetadataReceived(MafwRenderer *, const gchar *objectId, GHashTable *metadata, gpointer self, const GError *error)
 {
-    emit static_cast<MafwRendererAdapter*>(self)->currentMetadataReceived(metadata, QString::fromUtf8(objectId), MafwUtils::toQString(error));
+    Q_EMIT static_cast<MafwRendererAdapter*>(self)->currentMetadataReceived(metadata, QString::fromUtf8(objectId), MafwUtils::toQString(error));
 }
 
 void MafwRendererAdapter::onVolumeReceived(MafwExtension *, const gchar *, GValue *value, gpointer self, const GError *error)
 {
-    emit static_cast<MafwRendererAdapter*>(self)->volumeReceived(g_value_get_uint(value), MafwUtils::toQString(error));
+    Q_EMIT static_cast<MafwRendererAdapter*>(self)->volumeReceived(g_value_get_uint(value), MafwUtils::toQString(error));
 }

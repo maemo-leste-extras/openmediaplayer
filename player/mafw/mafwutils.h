@@ -1,7 +1,9 @@
 #ifndef MAFWUTILS_H
 #define MAFWUTILS_H
 
+#include <glib.h>
 #include <glib-object.h>
+
 #include <QString>
 #include <QVariant>
 

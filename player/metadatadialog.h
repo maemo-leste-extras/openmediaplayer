@@ -1,6 +1,9 @@
 #ifndef METADATADIALOG_H
 #define METADATADIALOG_H
 
+#include "mafw/mafwsourceadapter.h"
+#include "mafw/mafwutils.h"
+
 #include <QDialog>
 #include <QKeyEvent>
 #include <QClipboard>
@@ -10,9 +13,6 @@
 #include "ui_metadatadialog.h"
 #include "includes.h"
 #include "kbmenu.h"
-
-#include "mafw/mafwsourceadapter.h"
-#include "mafw/mafwutils.h"
 
 class MetadataDialog : public QDialog
 {
@@ -34,7 +34,7 @@ private:
     void display(const QMap<QString,QVariant> &metadata);
     QString sizeString(double size);
 
-private slots:
+private Q_SLOTS:
     void onMetadataReceived(const QString &objectId, GHashTable *metadata);
     void onContextMenuRequested(const QPoint &pos);
     void copyCurrentItem();

@@ -26,7 +26,7 @@ public:
 private:
     Ui::LyricsProvidersDialog *ui;
 
-private slots:
+private Q_SLOTS:
     void addProvider(QString name, QString description, bool active);
     void checkProvider(bool checked);
     void moveProviderUp();

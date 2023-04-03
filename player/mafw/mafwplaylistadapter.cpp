@@ -172,10 +172,10 @@ void MafwPlaylistAdapter::bind(MafwPlaylist *playlist, bool ref)
         this->playlist = playlist;
     } else {
         // Prevent outdated callbacks
-        foreach (gpointer op, ownedOps) {
+        Q_FOREACH(gpointer op, ownedOps) {
             activeOps.removeOne(op);
             mafw_playlist_cancel_get_items_md(op);
-            emit getItemsComplete(op);
+            Q_EMIT getItemsComplete(op);
         }
         ownedOps.clear();
 
@@ -191,17 +191,17 @@ void MafwPlaylistAdapter::bind(MafwPlaylist *playlist, bool ref)
 
 void MafwPlaylistAdapter::onContentsChanged(MafwPlaylist *, guint from, guint removed, guint replaced, gpointer self)
 {
-    emit static_cast<MafwPlaylistAdapter*>(self)->contentsChanged(from, removed, replaced);
+    Q_EMIT static_cast<MafwPlaylistAdapter*>(self)->contentsChanged(from, removed, replaced);
 }
 
 void MafwPlaylistAdapter::onItemMoved(MafwPlaylist *, guint from, guint to, gpointer self)
 {
-    emit static_cast<MafwPlaylistAdapter*>(self)->itemMoved(from, to);
+    Q_EMIT static_cast<MafwPlaylistAdapter*>(self)->itemMoved(from, to);
 }
 
 void MafwPlaylistAdapter::onPropertyChanged(MafwPlaylist *, GParamSpec *, gpointer self)
 {
-    emit static_cast<MafwPlaylistAdapter*>(self)->propertyChanged();
+    Q_EMIT static_cast<MafwPlaylistAdapter*>(self)->propertyChanged();
 }
 
 //--- Callbacks ----------------------------------------------------------------
@@ -211,7 +211,7 @@ void MafwPlaylistAdapter::onItemReceived(MafwPlaylist *, guint index, const gcha
     MafwPlaylistAdapter *adapter = static_cast<GetItemsData*>(data)->adapter;
                      gpointer op = static_cast<GetItemsData*>(data)->op;
 
-    emit adapter->gotItem(QString::fromUtf8(objectId), metadata, index, op);
+    Q_EMIT adapter->gotItem(QString::fromUtf8(objectId), metadata, index, op);
 }
 
 void MafwPlaylistAdapter::onGetItemsComplete(gpointer data)
@@ -221,7 +221,7 @@ void MafwPlaylistAdapter::onGetItemsComplete(gpointer data)
     if (activeOps.removeOne(op)) {
         MafwPlaylistAdapter *adapter = static_cast<GetItemsData*>(data)->adapter;
         adapter->ownedOps.removeOne(op);
-        emit adapter->getItemsComplete(op);
+        Q_EMIT adapter->getItemsComplete(op);
     }
 
     delete static_cast<GetItemsData*>(data);

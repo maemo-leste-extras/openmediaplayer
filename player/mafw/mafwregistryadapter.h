@@ -30,7 +30,7 @@ public:
 
     bool isRecognized(const QString &uuid);
 
-signals:
+Q_SIGNALS:
     void rendererAdded(MafwRenderer *renderer);
     void rendererRemoved(MafwRenderer *renderer);
 

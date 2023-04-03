@@ -25,14 +25,14 @@ public:
     QString album;
     QString cover;
 
-public slots:
+public Q_SLOTS:
     void browse(QString path = "..");
 
 private:
     Ui::CoverPicker *ui;
     void keyPressEvent(QKeyEvent *e);
 
-private slots:
+private Q_SLOTS:
     void onItemActivated(QListWidgetItem* item);
 };
 

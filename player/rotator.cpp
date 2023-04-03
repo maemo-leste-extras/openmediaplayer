@@ -84,5 +84,5 @@ void Rotator::onResized()
             break;
     }
 
-    emit rotated(w, h);
+    Q_EMIT rotated(w, h);
 }

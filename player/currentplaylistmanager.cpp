@@ -53,7 +53,7 @@ void CurrentPlaylistManager::process()
 // Send a notification and clean up
 void CurrentPlaylistManager::finalize()
 {
-    emit finished(jobs.first().token, songBufferSize);
+    Q_EMIT finished(jobs.first().token, songBufferSize);
 
     qDebug() << "Cleaning up after job" << jobs.first().token;
 

@@ -47,7 +47,7 @@ void CoverPicker::browse(QString path)
     ui->fileList->clear();
 
     QFileInfoList entries = dir.entryInfoList();
-    foreach (QFileInfo entry, entries) {
+    Q_FOREACH (QFileInfo entry, entries) {
         QListWidgetItem *item = new QListWidgetItem(ui->fileList);
         item->setText(entry.fileName());
         item->setIcon(QIcon::fromTheme(entry.isDir() ? "general_folder" : "general_image"));

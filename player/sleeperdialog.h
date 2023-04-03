@@ -26,7 +26,7 @@ public:
     explicit SleeperDialog(QWidget *parent = 0);
     ~SleeperDialog();
 
-public slots:
+public Q_SLOTS:
     void setTimeoutStamp(qint64 timeoutStamp = -1);
 
 private:
@@ -37,7 +37,7 @@ private:
 
     void keyPressEvent(QKeyEvent *e);
 
-private slots:
+private Q_SLOTS:
     void refreshTitle();
     void onButtonClicked(QAbstractButton *button);
     void onOrientationChanged(int h, int w);

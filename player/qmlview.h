@@ -1,6 +1,8 @@
 #ifndef QMLVIEW_H
 #define QMLVIEW_H
 
+#include "mafw/mafwregistryadapter.h"
+
 #include <QMainWindow>
 #include <QQuickView>
 #include <QGraphicsObject>
@@ -12,8 +14,6 @@
 #include "includes.h"
 #include "rotator.h"
 #include "fmtxinterface.h"
-
-#include "mafw/mafwregistryadapter.h"
 
 namespace Ui {
     class QmlView;
@@ -34,7 +34,7 @@ public:
     void clearPlaylist();
     void setCurrentRow(int);
 
-signals:
+Q_SIGNALS:
     void titleChanged(QVariant);
     void albumChanged(QVariant);
     void artistChanged(QVariant);
@@ -70,7 +70,7 @@ private:
     MafwRendererAdapter *mafwRenderer;
     int mafwState;
 
-private slots:
+private Q_SLOTS:
     void onPositionChanged(int position);
     void onStatusReceived(MafwPlaylist *, uint, MafwPlayState state);
     void onStateChanged(MafwPlayState state);

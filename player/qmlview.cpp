@@ -119,11 +119,11 @@ void QmlView::setMetadata(QString songName, QString albumName, QString artistNam
     this->duration = duration;
     this->songDuration = duration;
 
-    emit titleChanged(this->title);
-    emit albumChanged(this->album);
-    emit artistChanged(this->artist);
-    emit albumArtChanged(this->albumArt);
-    emit durationChanged(this->duration);
+    Q_EMIT titleChanged(this->title);
+    Q_EMIT albumChanged(this->album);
+    Q_EMIT artistChanged(this->artist);
+    Q_EMIT albumArtChanged(this->albumArt);
+    Q_EMIT durationChanged(this->duration);
 }
 
 void QmlView::setDNDAtom(bool dnd)
@@ -135,14 +135,14 @@ void QmlView::setDNDAtom(bool dnd)
 
 void QmlView::onFmtxChanged()
 {
-    emit fmtxStateChanged(fmtx->state() == FMTXInterface::Enabled ? "enabled" : "disabled");
+    Q_EMIT fmtxStateChanged(fmtx->state() == FMTXInterface::Enabled ? "enabled" : "disabled");
 }
 
 void QmlView::onPositionChanged(int position)
 {
     duration = mmss_pos(position) + "/" + mmss_len(songDuration);
-    emit durationTextChanged(duration);
-    emit positionChanged(position);
+    Q_EMIT durationTextChanged(duration);
+    Q_EMIT positionChanged(position);
 }
 
 void QmlView::onStateChanged(MafwPlayState state)
@@ -182,7 +182,7 @@ void QmlView::onStateChanged(MafwPlayState state)
         ui->songProgress->setRange(0, 99);
         ui->currentPositionLabel->setText(mmss_pos(0));*/
     }
-    emit stateIconChanged(playButtonIconString);
+    Q_EMIT stateIconChanged(playButtonIconString);
 }
 
 void QmlView::onStatusReceived(MafwPlaylist *, uint, MafwPlayState state)
@@ -207,14 +207,14 @@ void QmlView::onSliderValueChanged(int position)
 
 void QmlView::appendPlaylistItem(QListWidgetItem *item)
 {
-    emit playlistItemAppended(item->data(UserRoleSongTitle).toString(),
+    Q_EMIT playlistItemAppended(item->data(UserRoleSongTitle).toString(),
                               QVariant(item->data(UserRoleSongArtist).toString() + " / " + item->data(UserRoleSongAlbum).toString()),
                               mmss_len(item->data(UserRoleSongDuration).toInt()));
 }
 
 void QmlView::insertPlaylistItem(int index, QListWidgetItem *item)
 {
-    emit playlistItemInserted(index,
+    Q_EMIT playlistItemInserted(index,
                               item->data(UserRoleSongTitle).toString(),
                               QVariant(item->data(UserRoleSongArtist).toString() + " / " + item->data(UserRoleSongAlbum).toString()),
                               mmss_len(item->data(UserRoleSongDuration).toInt()));
@@ -222,7 +222,7 @@ void QmlView::insertPlaylistItem(int index, QListWidgetItem *item)
 
 void QmlView::setPlaylistItem(int index, QListWidgetItem *item)
 {
-    emit playlistItemSet(index,
+    Q_EMIT playlistItemSet(index,
                               item->data(UserRoleSongTitle).toString(),
                               QVariant(item->data(UserRoleSongArtist).toString() + " / " + item->data(UserRoleSongAlbum).toString()),
                               mmss_len(item->data(UserRoleSongDuration).toInt()));
@@ -230,12 +230,12 @@ void QmlView::setPlaylistItem(int index, QListWidgetItem *item)
 
 void QmlView::removePlaylistItem(int index)
 {
-    emit playlistItemRemoved(index);
+    Q_EMIT playlistItemRemoved(index);
 }
 
 void QmlView::clearPlaylist()
 {
-    emit playlistCleared();
+    Q_EMIT playlistCleared();
 }
 
 void QmlView::onPlaylistItemChanged(int index)
@@ -250,5 +250,5 @@ void QmlView::onFmtxClicked()
 
 void QmlView::setCurrentRow(int row)
 {
-    emit rowChanged(row);
+    Q_EMIT rowChanged(row);
 }

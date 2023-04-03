@@ -1,12 +1,12 @@
 #ifndef CURRENTPLAYLISTMANAGER_H
 #define CURRENTPLAYLISTMANAGER_H
 
+#include "mafw/mafwregistryadapter.h"
+
 #include <QDebug>
 
 #include <QObject>
 #include <QList>
-
-#include "mafw/mafwregistryadapter.h"
 
 struct Job
 {
@@ -31,7 +31,7 @@ public:
                        uint limit = MAFW_SOURCE_BROWSE_ALL,
                        bool clear = false);
 
-signals:
+Q_SIGNALS:
     void finished(uint browseId, int count);
 
 private:
@@ -52,7 +52,7 @@ private:
     CurrentPlaylistAdapter *playlist;
     MafwSourceAdapter *mafwTrackerSource;
 
-private slots:
+private Q_SLOTS:
     void onBrowseResult(uint browseId, int remainingCount, uint index, QString objectId, GHashTable *metadata);
 };
 

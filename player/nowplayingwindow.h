@@ -1,6 +1,9 @@
 #ifndef NOWPLAYINGWINDOW_H
 #define NOWPLAYINGWINDOW_H
 
+#include <mafw/mafwregistryadapter.h>
+#include "mafw/mafwplaylistmanageradapter.h"
+
 #include "basewindow.h"
 
 #include <QtGui>
@@ -31,9 +34,6 @@
 #include "fmtxdialog.h"
 #include "maemo5deviceevents.h"
 
-#include <mafw/mafwregistryadapter.h>
-#include "mafw/mafwplaylistmanageradapter.h"
-
 namespace Ui {
     class NowPlayingWindow;
 }
@@ -51,11 +51,11 @@ public:
     QString defaultWindowTitle;
     bool eventFilter(QObject *object, QEvent *event);
 
-signals:
+Q_SIGNALS:
     void hidden();
     void itemDropped(QListWidgetItem *item, int from);
 
-public slots:
+public Q_SLOTS:
     void setLyricsNormal(QString lyrics);
     void setLyricsInfo(QString info);
     void onShuffleButtonToggled(bool);
@@ -120,7 +120,7 @@ private:
     void mouseDoubleClickEvent(QMouseEvent *e);
     void closeEvent(QCloseEvent *);
 
-private slots:
+private Q_SLOTS:
     void selectAlbumArt();
     void resetAlbumArt();
     void refreshAlbumArt();

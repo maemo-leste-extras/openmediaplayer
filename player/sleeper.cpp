@@ -46,7 +46,7 @@ void Sleeper::stop()
 
     endStamp = -1;
 
-    emit finished();
+    Q_EMIT finished();
 }
 
 void Sleeper::onInitialVolumeReceived(int volume)
@@ -116,7 +116,7 @@ void Sleeper::onTimeout()
 {
     endStamp = -1;
 
-    emit finished();
+    Q_EMIT finished();
 
     QString action = QSettings().value("timer/action", "stop-playback").toString();
     qDebug() << "Sleeper countdown finished with action" << action;

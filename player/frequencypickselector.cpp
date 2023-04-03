@@ -33,5 +33,5 @@ void FrequencyPickSelector::onSelected(uint frequency)
 {
     this->frequency = qBound(min, frequency, max);
 
-    emit selected(currentValueText());
+    Q_EMIT selected(currentValueText());
 }

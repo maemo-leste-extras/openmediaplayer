@@ -1,13 +1,13 @@
 #ifndef MAFWRENDERERADAPTER_H
 #define MAFWRENDERERADAPTER_H
 
+#include <libmafw/mafw.h>
+#include <libmafw-shared/mafw-shared.h>
+
 #include <QObject>
 
 #include <QVariant>
 #include <QDebug>
-
-#include <libmafw/mafw.h>
-#include <libmafw-shared/mafw-shared.h>
 
 #ifdef MAFW_WORKAROUNDS
     class MafwRendererAdapter;
@@ -24,7 +24,7 @@ public:
 
     bool isReady();
 
-public slots:
+public Q_SLOTS:
     // Exposed operations
     void play();
     void playObject(const QString &objectId);
@@ -48,7 +48,7 @@ public slots:
     void setErrorPolicy(uint errorPolicy);
     void setColorKey(int colorKey);
 
-signals:
+Q_SIGNALS:
     void ready();
 
     // Exposed signals
@@ -114,7 +114,7 @@ private:
     friend class MafwRegistryAdapter;
 #endif
 
-private slots:
+private Q_SLOTS:
     void onRendererAdded(MafwRenderer *renderer);
     void onRendererRemoved(MafwRenderer *renderer);
 };

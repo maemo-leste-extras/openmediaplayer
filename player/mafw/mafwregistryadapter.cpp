@@ -66,24 +66,24 @@ bool MafwRegistryAdapter::isRecognized(const QString &uuid)
 
 void MafwRegistryAdapter::onRendererAdded(MafwRegistry *, MafwRenderer *renderer, MafwRegistryAdapter *self)
 {
-    emit self->rendererAdded(renderer);
+    Q_EMIT self->rendererAdded(renderer);
 }
 
 void MafwRegistryAdapter::onRendererRemoved(MafwRegistry *, MafwRenderer *renderer, MafwRegistryAdapter *self)
 {
-    emit self->rendererRemoved(renderer);
+    Q_EMIT self->rendererRemoved(renderer);
 }
 
 void MafwRegistryAdapter::onSourceAdded(MafwRegistry *, MafwSource *source, MafwRegistryAdapter *self)
 {
-    emit self->sourceAdded(source);
-    emit self->sourceAdded(mafw_extension_get_uuid(MAFW_EXTENSION(source)),
+    Q_EMIT self->sourceAdded(source);
+    Q_EMIT self->sourceAdded(mafw_extension_get_uuid(MAFW_EXTENSION(source)),
                            mafw_extension_get_name(MAFW_EXTENSION(source)));
 }
 
 void MafwRegistryAdapter::onSourceRemoved(MafwRegistry *, MafwSource *source, MafwRegistryAdapter *self)
 {
-    emit self->sourceRemoved(source);
-    emit self->sourceRemoved(mafw_extension_get_uuid(MAFW_EXTENSION(source)),
+    Q_EMIT self->sourceRemoved(source);
+    Q_EMIT self->sourceRemoved(mafw_extension_get_uuid(MAFW_EXTENSION(source)),
                              mafw_extension_get_name(MAFW_EXTENSION(source)));
 }

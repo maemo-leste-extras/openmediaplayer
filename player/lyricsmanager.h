@@ -33,11 +33,11 @@ public:
     static QString loadLyrics(QString artist, QString title);
     static bool clearCache();
 
-signals:
+Q_SIGNALS:
     void lyricsFetched(QString lyrics);
     void lyricsInfo(QString message);
 
-public slots:
+public Q_SLOTS:
     void onLyricsFetched(QString lyrics);
     void onLyricsError(QString message);
     void reloadLyricsOverridingCache();

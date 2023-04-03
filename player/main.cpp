@@ -21,17 +21,68 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
 
-#include "mainwindow.h"
+#include <glib.h>
+#include <gio/gio.h>
+#include <libmafw/mafw-log.h>
+#include <libmafw/mafw-registry.h>
+#include "mafw/mafwplaylistadapter.h"
+#include "mafw/mafwregistryadapter.h"
+#include "mafw/mafwutils.h"
 
+static MafwRendererSeekMode a = MafwRendererSeekMode::SeekAbsolute;
+static GSettingsBindFlags b = GSettingsBindFlags::G_SETTINGS_BIND_DEFAULT;
+
+#include <QObject>
 #include <QtWidgets/QApplication>
 #include <QTime>
 #include <QTextStream>
 #include <QTranslator>
 
-#include <libmafw/mafw-log.h>
+#include "mainwindow.h"
 
-int main(int argc, char *argv[])
-{
+QByteArray fileOpen(const QString &path) {
+  QFile file(path);
+  if(!file.open(QFile::ReadOnly | QFile::Text)) {
+    return QByteArray();
+  }
+
+  QByteArray data = file.readAll();
+  file.close();
+  return data;
+}
+
+QString barrayToString(const QByteArray &data) {
+  return QString(QTextCodec::codecForMib(106)->toUnicode(data));
+}
+
+int main(int argc, char *argv[]) {
+#ifdef DEBUG
+  // For remote debugging (QEMU) with CLion, the environment variables need
+  // to be correctly set such that e.g. dbus will work. We can execute
+  // this hack to dump the environ to a file, then reads it below.
+  // This snippet runs when `-D CMAKE_DEBUG_TYPE=Debug`
+
+  // /bin/sh -c 'nohup /tmp/tmp.fCTLrJeUgW/cmake-build-debug/bin/conversations >/dev/null 2>&1 &'; sleep 2; cat "/proc/`pidof conversations`/environ" | tr "\0" "\n" > /home/user/env.sh; kill -9 "`pidof conversations`"
+  setuid(1000);
+  QString path_env_file = "/home/user/env.sh";
+  qDebug() << "trying to read ENV from" << path_env_file << ", if it exists";
+  auto env_file = fileOpen(path_env_file);
+  for(auto &line: barrayToString(env_file).split("\n")) {
+    line = line.replace("export ", "");
+    int pos = line.indexOf("=");
+    auto key = line.left(pos);
+    auto val = line.remove(0, pos + 1);
+
+    if(val.startsWith("\""))
+      val = val.mid(1);
+    if(val.endsWith("\""))
+      val = val.mid(0, val.length() - 1);
+
+    if(val.isEmpty() || key.isEmpty()) continue;
+    qputenv(key.toStdString().c_str(), val.toStdString().c_str());
+  }
+#endif
+
     QApplication::setOrganizationName("openmediaplayer");
     QApplication::setApplicationName("openmediaplayer");
     QApplication::setApplicationVersion("0.1");

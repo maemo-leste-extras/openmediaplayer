@@ -61,7 +61,7 @@ void LyricWikiPlugin::onArtistReplyReceived()
         }
     }
 
-    emit error("The lyrics for this artist are missing on LyricWiki.");
+    Q_EMIT error("The lyrics for this artist are missing on LyricWiki.");
 }
 
 void LyricWikiPlugin::onSongReplyReceived()
@@ -76,7 +76,7 @@ void LyricWikiPlugin::onSongReplyReceived()
         data.remove(data.indexOf("<!--", i), data.length());
 
         if (data.indexOf("Category:Instrumental", i) != -1) {
-            emit error("According to LyricWiki this track is instrumental.");
+            Q_EMIT error("According to LyricWiki this track is instrumental.");
             return;
         }
 
@@ -84,12 +84,12 @@ void LyricWikiPlugin::onSongReplyReceived()
         QString plainLyrics = lyrics.toPlainText();
 
         if (plainLyrics.contains("we are not licensed to display the full lyrics for this song")) {
-            emit error("The lyrics for this song are incomplete on LyricWiki.");
+            Q_EMIT error("The lyrics for this song are incomplete on LyricWiki.");
         } else {
-            emit fetched(plainLyrics);
+            Q_EMIT fetched(plainLyrics);
         }
     } else {
-        emit error("The lyrics for this song are missing on LyricWiki.");
+        Q_EMIT error("The lyrics for this song are missing on LyricWiki.");
     }
 }
 

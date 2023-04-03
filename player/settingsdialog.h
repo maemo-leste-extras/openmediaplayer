@@ -34,7 +34,7 @@ private:
     QString lyricsProviders;
     void setLyricsProviders(QString lyricsProviders);
 
-private slots:
+private Q_SLOTS:
     void configureLyricsProviders();
     void clearLyricsCache();
     void accept();

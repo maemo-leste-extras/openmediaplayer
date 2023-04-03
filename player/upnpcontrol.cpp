@@ -63,7 +63,7 @@ void UpnpControl::onSourceRemoved(const QString &uuid)
 
 void UpnpControl::onItemActivated(QListWidgetItem *item)
 {
-    emit childOpened();
+    Q_EMIT childOpened();
 
     QString uuid = item->data(UserRoleObjectID).toString();
 
@@ -78,5 +78,5 @@ void UpnpControl::onItemActivated(QListWidgetItem *item)
 void UpnpControl::onChildClosed()
 {
     this->clearSelection();
-    emit childClosed();
+    Q_EMIT childClosed();
 }
