@@ -4,7 +4,7 @@ builddir:
 	mkdir -p builddir
 
 builddir/Makefile: builddir
-	cd builddir && qmake-qt4 PREFIX=/usr QMAKE_STRIP=echo QMAKE_CXXFLAGS=-g ../$(APPNAME).pro
+	cd builddir && qmake PREFIX=/usr QMAKE_STRIP=echo QMAKE_CXXFLAGS=-g ../$(APPNAME).pro
 	#cd builddir && qmake-qt4 PREFIX=/usr QMAKE_STRIP=echo QMAKE_CXXFLAGS='-g -mthumb' ../$(APPNAME).pro
 
 build: build-stamp
