@@ -37,8 +37,8 @@ void MetadataDialog::init()
     ui->setupUi(this);
 
     QHeaderView *headerView = ui->metadataTable->horizontalHeader();
-    headerView->setResizeMode(0, QHeaderView::ResizeToContents);
-    headerView->setResizeMode(1, QHeaderView::Stretch);
+    headerView->setSectionResizeMode(0, QHeaderView::ResizeToContents);
+    headerView->setSectionResizeMode(1, QHeaderView::Stretch);
     connect(ui->metadataTable, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(onContextMenuRequested(QPoint)));
 }
 

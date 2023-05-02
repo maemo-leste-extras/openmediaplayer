@@ -2,7 +2,7 @@
 #define QMLVIEW_H
 
 #include <QMainWindow>
-#include <QDeclarativeView>
+#include <QQuickView>
 #include <QGraphicsObject>
 #include <QGLWidget>
 #include <QTimer>

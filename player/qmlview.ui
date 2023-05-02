@@ -19,16 +19,16 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QDeclarativeView" name="declarativeView"/>
+     <widget class="QQuickWidget" name="quickWidget" native="true"/>
     </item>
    </layout>
   </widget>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QDeclarativeView</class>
-   <extends>QGraphicsView</extends>
-   <header>QtDeclarative/QDeclarativeView</header>
+   <class>QQuickWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">QtQuickWidgets/QQuickWidget</header>
   </customwidget>
  </customwidgets>
  <resources/>

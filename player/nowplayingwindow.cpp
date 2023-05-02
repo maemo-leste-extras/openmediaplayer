@@ -18,6 +18,8 @@
 
 #include "nowplayingwindow.h"
 
+#include <QScroller>
+
 NowPlayingWindow* NowPlayingWindow::instance = NULL;
 
 NowPlayingWindow* NowPlayingWindow::acquire(QWidget *parent, MafwRegistryAdapter *mafwRegistry)
@@ -1165,8 +1167,11 @@ void NowPlayingWindow::focusItemByRow(int row)
         ui->songList->verticalScrollBar()->setValue(pos);
 
         // Scroll smoothly
-        ui->songList->property("kineticScroller").value<QAbstractKineticScroller*>()
-                    ->scrollTo(QPoint(0, qBound(0, row*70 + 35-ui->songList->height()/2, ui->songList->verticalScrollBar()->maximum())));
+        QScroller::scroller(ui->songList)->scrollTo(
+                    QPoint(0,
+                           qBound(0, row * 70 + 35 - ui->songList->height() / 2,
+                                  ui->songList->verticalScrollBar()->maximum()))
+                    );
     }
 }
 

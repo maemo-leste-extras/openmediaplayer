@@ -1,4 +1,4 @@
-QT += core gui dbus declarative opengl network maemo5
+QT += core gui dbus quick qml opengl network maemo5 x11extras quickwidgets
 
 TARGET = openmediaplayer
 TEMPLATE = app
@@ -6,6 +6,7 @@ TEMPLATE = app
 INCLUDEPATH += ../lyrics
 
 DEFINES += MAFW_WORKAROUNDS
+DEFINES += QT_NO_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
@@ -182,7 +183,7 @@ OTHER_FILES += \
 
 LIBS += -lhildonthumbnail -lX11
 CONFIG += link_pkgconfig
-PKGCONFIG += mafw mafw-shared glib-2.0 gnome-vfs-2.0 libplayback-1 dbus-1 gtk+-2.0
+PKGCONFIG += mafw mafw-shared glib-2.0 libplayback-1 dbus-1 gtk+-2.0
 
 TRANSLATIONS = \
     lang/openmediaplayer.ar_SA.ts \

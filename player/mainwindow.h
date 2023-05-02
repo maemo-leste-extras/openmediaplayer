@@ -36,7 +36,6 @@
 #define DBUS_INTERFACE "com.nokia.mediaplayer"
 
 #include "mafw/mafwregistryadapter.h"
-#include <libgnomevfs/gnome-vfs-mime-utils.h>
 #define TAGSOURCE_AUDIO_PATH     "localtagfs::music/songs"
 #define TAGSOURCE_PLAYLISTS_PATH "localtagfs::music/playlists"
 #define TAGSOURCE_VIDEO_PATH     "localtagfs::videos"

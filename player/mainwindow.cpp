@@ -18,6 +18,8 @@
 
 #include "mainwindow.h"
 
+#include <QMimeDatabase>
+
 QString defaultAlbumImage;
 QString defaultRadioImage;
 QString volumeButtonIcon;
@@ -265,9 +267,11 @@ void MainWindow::openDirectory(const QString &uri, const QString &objectIdToPlay
     gchar** songAddBuffer = new gchar*[songAddBufferSize+1];
     int songAddBufferPos = 0;
 
+    QMimeDatabase db;
+
     for (int i = 0; i < songAddBufferSize; i++) {
         QString file = entries.at(i);
-        QString mime = gnome_vfs_get_mime_type_for_name(file.toUtf8());
+        QString mime = db.mimeTypeForFile(file).name();
 
         // maybe there's a better way to ignore playlists
         if (mime.startsWith(filter) && !mime.endsWith("mpegurl"))
@@ -333,9 +337,11 @@ void MainWindow::mime_open(const QString &uriString)
     QString objectId = mafwTrackerSource->createObjectId(uriToPlay);
     qDebug() << "ID to open:" << objectId;
 
+    QMimeDatabase db;
+
     // Local resource
     if (uriToPlay.startsWith("file://")) {
-        QString mime(gnome_vfs_get_mime_type_for_name(uriToPlay.toUtf8()));
+        QString mime = db.mimeTypeForUrl(uriToPlay).name();
         qDebug() << "MIME:" << mime;
 
         // Audio or a playlist

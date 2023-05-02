@@ -1,5 +1,7 @@
 #include "qmlview.h"
 
+#include <QQuickItem>
+
 #include <QX11Info>
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
@@ -14,15 +16,12 @@ QmlView::QmlView(QUrl source, QWidget *parent, MafwRegistryAdapter *mafwRegistry
     mafwRenderer(mafwRegistry->renderer())
 {
     ui->setupUi(this);
-    ui->declarativeView->setSource(source);
-    ui->declarativeView->setResizeMode(QDeclarativeView::SizeRootObjectToView);
+    ui->quickWidget->setSource(source);
+    ui->quickWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
 
     setAttribute(Qt::WA_DeleteOnClose);
     setProperty("X-Maemo-StackedWindow", 1);
     setProperty("X-Maemo-NotComposited", 1);
-
-    QGLWidget *glWidget = new QGLWidget(this);
-    ui->declarativeView->setViewport(glWidget);
 
     positionTimer = new QTimer(this);
     positionTimer->setInterval(1000);
@@ -33,7 +32,7 @@ QmlView::QmlView(QUrl source, QWidget *parent, MafwRegistryAdapter *mafwRegistry
     savedPolicy = rotator->policy();
     rotator->setPolicy(Rotator::Landscape);
 
-    rootObject = dynamic_cast<QObject*>(ui->declarativeView->rootObject());
+    rootObject = dynamic_cast<QObject*>(ui->quickWidget->rootObject());
     rootObject->setParent(this);
 
     connect(rootObject, SIGNAL(quitButtonClicked()), this, SLOT(close()));
