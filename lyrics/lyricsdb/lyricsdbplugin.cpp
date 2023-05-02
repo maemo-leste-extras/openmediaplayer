@@ -9,7 +9,7 @@ void LyricsDBPlugin::fetch(QString artist, QString title)
 {
     QByteArray data;
     data.append("<?xml version=\"1.0\"?><query>");
-    data.append(QString("<song id=\"0\" artist=\"%1\" title=\"%2\"/>").arg(Qt::escape(artist), Qt::escape(title)));
+    data.append(QString("<song id=\"0\" artist=\"%1\" title=\"%2\"/>").arg(artist.toHtmlEscaped(), title.toHtmlEscaped()));
     data.append("</query>");
 
     reply = nam->post(QNetworkRequest(QUrl("http://lyrics.mirkforce.net/cgi-bin/lepserver.cgi")), data);
@@ -41,5 +41,3 @@ void LyricsDBPlugin::onReplyReceived()
 
 
 }
-
-Q_EXPORT_PLUGIN2(lyricsdbplugin, LyricsDBPlugin)

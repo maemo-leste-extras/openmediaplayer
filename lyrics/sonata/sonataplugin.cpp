@@ -13,5 +13,3 @@ void SonataPlugin::fetch(QString artist, QString title)
     else
         emit fetched(lyrics);
 }
-
-Q_EXPORT_PLUGIN2(sonataplugin, SonataPlugin)

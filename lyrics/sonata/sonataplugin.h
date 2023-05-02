@@ -10,6 +10,7 @@ class SonataPlugin : public AbstractLyricsProvider
 {
     Q_OBJECT
     Q_INTERFACES(AbstractLyricsProvider)
+    Q_PLUGIN_METADATA(IID "org.maemo.mediaplayer.lyrics.sonata")
 
 public:
     QString name() { return "Sonata"; }

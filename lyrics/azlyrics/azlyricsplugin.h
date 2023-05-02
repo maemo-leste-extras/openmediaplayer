@@ -10,6 +10,7 @@ class AZLyricsPlugin : public AbstractLyricsProvider
 {
     Q_OBJECT
     Q_INTERFACES(AbstractLyricsProvider)
+    Q_PLUGIN_METADATA(IID "org.maemo.mediaplayer.lyrics.az")
 
 public:
     AZLyricsPlugin();

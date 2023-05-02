@@ -83,5 +83,3 @@ void DarkLyricsPlugin::onAlbumReplyReceived()
         emit error("The lyrics for this song are missing on Dark Lyrics.");
     }
 }
-
-Q_EXPORT_PLUGIN2(darklyricsplugin, DarkLyricsPlugin)

@@ -17,5 +17,3 @@ QString MaeLyricaPlugin::cleanItem(QString item)
 {
     return item.toLower().replace("&","and").remove(QRegExp("\\([^)]*\\)")).remove(QRegExp("[\\W_]"));
 }
-
-Q_EXPORT_PLUGIN2(maelyricaplugin, MaeLyricaPlugin)

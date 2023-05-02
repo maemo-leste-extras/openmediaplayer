@@ -92,5 +92,3 @@ void LyricWikiPlugin::onSongReplyReceived()
         emit error("The lyrics for this song are missing on LyricWiki.");
     }
 }
-
-Q_EXPORT_PLUGIN2(lyricwikiplugin, LyricWikiPlugin)

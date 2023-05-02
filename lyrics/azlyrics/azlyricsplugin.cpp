@@ -51,5 +51,3 @@ void AZLyricsPlugin::onReplyReceived()
         emit error("The lyrics for this song are missing on AZLyrics.");
     }
 }
-
-Q_EXPORT_PLUGIN2(azlyricsplugin, AZLyricsPlugin)

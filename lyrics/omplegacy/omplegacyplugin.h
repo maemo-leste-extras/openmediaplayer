@@ -11,6 +11,7 @@ class OMPLegacyPlugin : public AbstractLyricsProvider
 {
     Q_OBJECT
     Q_INTERFACES(AbstractLyricsProvider)
+    Q_PLUGIN_METADATA(IID "org.maemo.mediaplayer.lyrics.legacy")
 
 public:
     QString name() { return "OMP pre-20120803 offline cache"; }
