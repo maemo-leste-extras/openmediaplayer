@@ -26,6 +26,7 @@ RadioNowPlayingWindow::RadioNowPlayingWindow(QWidget *parent, MafwRegistryAdapte
     playlist(mafwRegistry->playlist())
 {
     ui->setupUi(this);
+    menuBar()->hide();
 
     setAttribute(Qt::WA_DeleteOnClose);
 

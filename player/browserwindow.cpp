@@ -5,6 +5,7 @@ BrowserWindow::BrowserWindow(QWidget *parent, MafwRegistryAdapter *mafwRegistry)
     ui(new Ui::BrowserWindow)
 {
     ui->setupUi(this);
+    menuBar()->hide();
 
     ui->searchHideButton->setIcon(QIcon::fromTheme("general_close"));
 

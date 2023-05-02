@@ -28,6 +28,8 @@ MusicWindow::MusicWindow(QWidget *parent, MafwRegistryAdapter *mafwRegistry) :
     listAction(NULL)
 {
     ui->setupUi(this);
+    menuBar()->hide();
+
     ui->searchHideButton->setIcon(QIcon::fromTheme("general_close"));
 
     SongListItemDelegate *songDelegate = new SongListItemDelegate(ui->songList);

@@ -29,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    menuBar()->hide();
 
     QPalette palette;
     QColor secondaryColor = QMaemo5Style::standardColor("SecondaryTextColor");

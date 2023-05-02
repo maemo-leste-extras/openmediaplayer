@@ -51,6 +51,7 @@ NowPlayingWindow::NowPlayingWindow(QWidget *parent, MafwRegistryAdapter *mafwReg
     playlist(mafwRegistry->playlist())
 {
     ui->setupUi(this);
+    menuBar()->hide();
 
     QPalette palette;
     QColor secondaryColor = QMaemo5Style::standardColor("SecondaryTextColor");
