@@ -19,3 +19,11 @@ void CQGraphicsView::mouseDoubleClickEvent(QMouseEvent *e)
 {
     e->ignore();
 }
+
+void CQGraphicsView::resizeEvent(QResizeEvent *) {
+    setSceneRect(0, 0, width(), height());
+}
+
+void CQGraphicsView::showEvent(QShowEvent *) {
+    setSceneRect(0, 0, width(), height());
+}

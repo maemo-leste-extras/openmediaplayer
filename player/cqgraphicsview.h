@@ -15,6 +15,8 @@ protected:
     void mousePressEvent(QMouseEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
     void mouseDoubleClickEvent(QMouseEvent *e);
+    void resizeEvent(QResizeEvent *e);
+    void showEvent(QShowEvent *e);
 };
 
 #endif // CQGRAPHICSVIEW_H
