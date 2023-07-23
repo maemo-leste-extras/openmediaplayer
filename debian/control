@@ -19,7 +19,10 @@ Homepage: http://gitorious.org/qt-mediaplayer
 
 Package: openmediaplayer
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends},
+    libqt5x11extras5,
+    libqt5opengl5,
+    qt-platform-maemo,
 Description: Potential replacement for the stock media player
 XSBC-Maemo-Display-Name: Open Media Player
 XB-Maemo-Icon-26:
