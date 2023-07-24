@@ -25,6 +25,7 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
     libqt5x11extras5,
     libqt5opengl5,
     qt-platform-maemo,
+    mafw-iradio-source,
 Description: Potential replacement for the stock media player
 XSBC-Maemo-Display-Name: Open Media Player
 XB-Maemo-Icon-26:
