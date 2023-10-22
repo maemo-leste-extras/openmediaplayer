@@ -263,7 +263,11 @@ void MetadataWatcher::onSourceMetadataChanged(QString objectId)
 
 void MetadataWatcher::onRendererMetadataReceived(GHashTable *metadata, QString objectId)
 {
-    if (objectId != currentObjectId) return;
+    if (objectId != currentObjectId)
+      return;
+
+    if (!metadata)
+      return;
 
     qDebug() << "Renderer metadata received";
 
