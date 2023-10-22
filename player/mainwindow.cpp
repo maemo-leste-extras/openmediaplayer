@@ -81,8 +81,6 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(mafwTrackerSource, SIGNAL(containerChanged(QString)), this, SLOT(registerDbusService()));
     }
 
-    updatingShow = true;
-
     updatingProgressBar = new QProgressBar;
     updatingProgressBar->setTextVisible(false);
 
@@ -705,27 +703,27 @@ void MainWindow::onSourceUpdating(int progress, int processed_items, int remaini
              << ", remaining_items =" << remaining_items
              << ", remaining_time =" << remaining_time << ")";
 
-    QString text;
-    text.append(tr("Retrieving information on the new media files"));
-    text.append("\n");
-    text.append(tr("Estimated time remaining:") + " " + (remaining_time < 0 ? "?" : mmss_len(remaining_time)));
-    text.append("\n");
-    text.append(tr("Remaining items:") + " " + (remaining_items < 0 ? "?" : QString::number(remaining_items)));
+    if (progress > 0 && progress < 100) {
+      QString text;
 
-    updatingLabel->setText(text);
-    updatingProgressBar->setValue(progress);
+      text.append(tr("Retrieving information on the new media files"));
 
-    // Update signal is not only emitted during a general Tracker update, but also
-    // in other cases (after deleting and often after selecting a song to play,
-    // for example). Update notifications showing up for no apparent reason are
-    // rather annoying, so it's better to ignore signals leading to such situation.
-    // What they have in common seems to be remaining_items=0.
-    if (remaining_items > 0 && updatingShow) {
+      if (remaining_time > 0) {
+        text.append("\n");
+        text.append(tr("Estimated time remaining:") + " " + mmss_len(remaining_time));
+      }
+
+      if (remaining_items > 0) {
+        text.append("\n");
+        text.append(tr("Remaining items:") + " " + QString::number(remaining_items));
+      }
+
+      updatingLabel->setText(text);
+      updatingProgressBar->setValue(progress);
+
         updatingInfoBox->show();
-        updatingShow = false;
-    } else if (progress == 100) {
+    } else  {
         updatingInfoBox->hide();
-        updatingShow = true;
     }
 }
 

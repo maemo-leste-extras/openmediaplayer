@@ -77,7 +77,6 @@ private:
     QMaemo5InformationBox *updatingInfoBox;
     QProgressBar *updatingProgressBar;
     QLabel *updatingLabel;
-    bool updatingShow;
     MafwRegistryAdapter *mafwRegistry;
     MafwRendererAdapter *mafwRenderer;
     MafwSourceAdapter *mafwTrackerSource;
