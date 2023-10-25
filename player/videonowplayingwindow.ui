@@ -85,27 +85,27 @@
      </property>
      <item>
       <widget class="QCheckBox" name="fitCheckBox">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="styleSheet">
         <string notr="true">background: transparent;</string>
        </property>
        <property name="text">
         <string>Fit</string>
        </property>
-       <property name="focusPolicy">
-        <enum>Qt::NoFocus</enum>
-       </property>
       </widget>
      </item>
      <item>
       <widget class="QCheckBox" name="continuousCheckBox">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="styleSheet">
         <string notr="true">background: transparent;</string>
        </property>
        <property name="text">
         <string>Continuous</string>
-       </property>
-       <property name="focusPolicy">
-        <enum>Qt::NoFocus</enum>
        </property>
       </widget>
      </item>
@@ -137,13 +137,16 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="QWidget" name="buttonWidget">
+      <widget class="QWidget" name="buttonWidget" native="true">
        <layout class="QHBoxLayout" name="buttonLayout">
         <property name="margin">
          <number>0</number>
         </property>
         <item>
          <widget class="QToolButton" name="detailsButton">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
           <property name="styleSheet">
            <string notr="true">background: transparent;</string>
           </property>
@@ -152,14 +155,14 @@
             <width>48</width>
             <height>48</height>
            </size>
-          </property>
-          <property name="focusPolicy">
-           <enum>Qt::NoFocus</enum>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QToolButton" name="bookmarkButton">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
           <property name="visible">
            <bool>false</bool>
           </property>
@@ -171,14 +174,14 @@
             <width>48</width>
             <height>48</height>
            </size>
-          </property>
-          <property name="focusPolicy">
-           <enum>Qt::NoFocus</enum>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QToolButton" name="shareButton">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
           <property name="visible">
            <bool>false</bool>
           </property>
@@ -190,14 +193,14 @@
             <width>48</width>
             <height>48</height>
            </size>
-          </property>
-          <property name="focusPolicy">
-           <enum>Qt::NoFocus</enum>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QToolButton" name="deleteButton">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
           <property name="visible">
            <bool>false</bool>
           </property>
@@ -210,13 +213,10 @@
             <height>48</height>
            </size>
           </property>
-          <property name="focusPolicy">
-           <enum>Qt::NoFocus</enum>
-          </property>
          </widget>
         </item>
         <item>
-         <widget class="QWidget" name="positionWidget">
+         <widget class="QWidget" name="positionWidget" native="true">
           <layout class="QHBoxLayout" name="positionLayout">
            <item>
             <widget class="QLabel" name="currentPositionLabel">
@@ -233,6 +233,9 @@
            </item>
            <item>
             <widget class="QSlider" name="positionSlider">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                <horstretch>0</horstretch>
@@ -241,9 +244,6 @@
              </property>
              <property name="focusPolicy">
               <enum>Qt::NoFocus</enum>
-             </property>
-             <property name="enabled">
-              <bool>false</bool>
              </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -265,23 +265,23 @@
         </item>
         <item>
          <widget class="QProgressBar" name="bufferBar">
-          <property name="visible">
-           <bool>false</bool>
-          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="visible">
+           <bool>false</bool>
+          </property>
           <property name="maximum">
            <number>0</number>
           </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
           <property name="textVisible">
            <bool>true</bool>
-          </property>
-          <property name="alignment">
-           <enum>Qt::AlignCenter</enum>
           </property>
          </widget>
         </item>
@@ -289,16 +289,13 @@
       </widget>
      </item>
      <item>
-      <widget class="QWidget" name="volumeWidget">
+      <widget class="QWidget" name="volumeWidget" native="true">
        <layout class="QHBoxLayout" name="volumeLayout">
         <property name="margin">
          <number>0</number>
         </property>
         <item>
          <widget class="QSlider" name="volumeSlider">
-          <property name="visible">
-           <bool>false</bool>
-          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -307,6 +304,9 @@
           </property>
           <property name="focusPolicy">
            <enum>Qt::NoFocus</enum>
+          </property>
+          <property name="visible">
+           <bool>false</bool>
           </property>
           <property name="maximum">
            <number>100</number>
@@ -318,6 +318,9 @@
         </item>
         <item>
          <widget class="QToolButton" name="volumeButton">
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
           <property name="styleSheet">
            <string notr="true">background: transparent;</string>
           </property>
@@ -326,9 +329,6 @@
             <width>64</width>
             <height>64</height>
            </size>
-          </property>
-          <property name="focusPolicy">
-           <enum>Qt::NoFocus</enum>
           </property>
          </widget>
         </item>
@@ -376,6 +376,9 @@
          <height>96</height>
         </size>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="styleSheet">
         <string notr="true">background: transparent;</string>
        </property>
@@ -390,9 +393,6 @@
        </property>
        <property name="autoRepeatDelay">
         <number>1000</number>
-       </property>
-       <property name="focusPolicy">
-        <enum>Qt::NoFocus</enum>
        </property>
       </widget>
      </item>
@@ -416,6 +416,9 @@
          <height>96</height>
         </size>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="styleSheet">
         <string notr="true">background: transparent;</string>
        </property>
@@ -424,9 +427,6 @@
          <width>64</width>
          <height>64</height>
         </size>
-       </property>
-       <property name="focusPolicy">
-        <enum>Qt::NoFocus</enum>
        </property>
       </widget>
      </item>
@@ -450,6 +450,9 @@
          <height>96</height>
         </size>
        </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
        <property name="styleSheet">
         <string notr="true">background: transparent;</string>
        </property>
@@ -464,9 +467,6 @@
        </property>
        <property name="autoRepeatDelay">
         <number>1000</number>
-       </property>
-       <property name="focusPolicy">
-        <enum>Qt::NoFocus</enum>
        </property>
       </widget>
      </item>
