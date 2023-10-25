@@ -1,7 +1,13 @@
+openmediaplayer (20231025-1) unstable; urgency=low
+
+  * videonowplayingwindow: Resize according to screen size
+
+ -- Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>  Wed, 25 Oct 2023 18:58:22 +0300
+
 openmediaplayer (20231022-1) unstable; urgency=low
 
-  * Initial release for Maemo Leste.
-  * Only internet radio currently works, but this might change when mafw-tracker-source gets ported to the newer interfaces
+  * Change progress indicator logic for the new mafw-source-tracker
+  * add mafw-tracker-source dependency
 
  -- Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>  Sun, 22 Oct 2023 18:00:38 +0300
 
