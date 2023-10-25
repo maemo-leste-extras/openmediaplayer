@@ -55,6 +55,7 @@ protected:
     void keyPressEvent(QKeyEvent *e);
     void keyReleaseEvent(QKeyEvent *e);
     void changeEvent(QEvent *e);
+    void resizeEvent(QResizeEvent *event);
 
 private:
     Ui::VideoNowPlayingWindow *ui;

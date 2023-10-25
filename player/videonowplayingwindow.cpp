@@ -767,6 +767,13 @@ void VideoNowPlayingWindow::changeEvent(QEvent *e)
     QMainWindow::changeEvent(e);
 }
 
+void VideoNowPlayingWindow::resizeEvent(QResizeEvent *event)
+{
+    ui->videoWidget->resize(event->size());
+    ui->controlsWidget->resize(event->size());
+    QMainWindow::resizeEvent(event);
+}
+
 void VideoNowPlayingWindow::repeatKey()
 {
     switch (keyToRepeat)
