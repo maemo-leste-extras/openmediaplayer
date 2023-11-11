@@ -46,7 +46,7 @@ class VideoNowPlayingWindow : public QMainWindow
 public:
     explicit VideoNowPlayingWindow(QWidget *parent = 0, MafwRegistryAdapter *mafwRegistry = 0, bool overlay = false);
     ~VideoNowPlayingWindow();
-    bool eventFilter(QObject*, QEvent *event);
+    bool eventFilter(QObject *object, QEvent *event);
 
     void play();
 
@@ -55,8 +55,8 @@ protected:
     void keyPressEvent(QKeyEvent *e);
     void keyReleaseEvent(QKeyEvent *e);
     void changeEvent(QEvent *e);
-    void resizeEvent(QResizeEvent *event);
-
+    void resizeEvent(QResizeEvent *e);
+    void paintEvent(QPaintEvent *e);
 private:
     Ui::VideoNowPlayingWindow *ui;
     void setIcons();
@@ -91,6 +91,7 @@ private:
     bool gotCurrentPlayState;
     bool isMediaSeekable;
     bool buttonWasDown;
+    bool resized;
     int keyToRepeat;
     MafwRegistryAdapter *mafwRegistry;
     MafwRendererAdapter *mafwRenderer;

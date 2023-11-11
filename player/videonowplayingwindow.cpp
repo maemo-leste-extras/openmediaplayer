@@ -18,6 +18,8 @@
 
 #include "videonowplayingwindow.h"
 
+#include <QScreen>
+
 VideoNowPlayingWindow::VideoNowPlayingWindow(QWidget *parent, MafwRegistryAdapter *mafwRegistry, bool overlay) :
     QMainWindow(parent),
     ui(new Ui::VideoNowPlayingWindow),
@@ -30,6 +32,13 @@ VideoNowPlayingWindow::VideoNowPlayingWindow(QWidget *parent, MafwRegistryAdapte
     setAttribute(Qt::WA_OpaquePaintEvent);
     setAttribute(Qt::WA_DeleteOnClose);
     setProperty("X-Maemo-StackedWindow", 1);
+
+    setGeometry(screen()->geometry());
+
+    ui->verticalLayout->removeWidget(ui->videoWidget);
+
+    ui->videoWidget->lower();
+    ui->videoWidget->hide();
 
     // Lock the orientation to landscape, but remember the policy to restore it later
     Rotator *rotator = Rotator::acquire();
@@ -67,6 +76,7 @@ VideoNowPlayingWindow::VideoNowPlayingWindow(QWidget *parent, MafwRegistryAdapte
     gotInitialPlayState = false;
     gotCurrentPlayState = false;
     buttonWasDown = false;
+    resized = false;
 
     resumePosition = Duration::Unknown;
 
@@ -151,16 +161,20 @@ VideoNowPlayingWindow::~VideoNowPlayingWindow()
 }
 
 // Handle clicks from the position label to toggle between its normal and reverse mode
-bool VideoNowPlayingWindow::eventFilter(QObject*, QEvent *event)
+bool VideoNowPlayingWindow::eventFilter(QObject *object, QEvent *event)
 {
-    if (event->type() == QEvent::MouseButtonRelease)
-        return true;
+    if (object == ui->currentPositionLabel) {
+        if (event->type() == QEvent::MouseButtonRelease)
+            return true;
 
-    if (event->type() == QEvent::MouseButtonPress) {
-        reverseTime = !reverseTime;
-        QSettings().setValue("main/reverseTime", reverseTime);
-        ui->currentPositionLabel->setText(mmss_pos(reverseTime ? ui->positionSlider->value()-videoLength :
-                                                                 ui->positionSlider->value()));
+        if (event->type() == QEvent::MouseButtonPress) {
+            reverseTime = !reverseTime;
+            QSettings().setValue("main/reverseTime", reverseTime);
+            ui->currentPositionLabel->setText(mmss_pos(reverseTime ? ui->positionSlider->value()-videoLength :
+                                                                     ui->positionSlider->value()));
+            return true;
+        }
+    } else if (event->type() == QEvent::Paint && object == ui->videoWidget) {
         return true;
     }
 
@@ -655,26 +669,29 @@ void VideoNowPlayingWindow::setFitToScreen(bool enable)
     fitToScreen = enable;
     QSettings().setValue("Videos/fitToScreen", enable);
 
-    int w, h;
+    if (!resized)
+        return;
 
-    // Some sizes cause wrong colors, so it's safer to use constant values which
-    // are known to work. The multiplier of 2 will allow up to 50% of the image
-    // to be outside of the screen.
+    QSize s(videoWidth, videoHeight);
+    int w = size().width();
+    int h = size().height();
+
+    s.scale(w, h, Qt::KeepAspectRatio);
+
     if (enable && videoWidth && videoHeight) {
-        if((float) videoWidth / videoHeight > 800.0 / 480.0) {
-            w = 800 * 2;
-            h = 480;
-        } else {
-            w = 800;
-            h = 480 * 2;
-        }
-    } else {
-        w = 800;
-        h = 480;
+        if (s.width() < w)
+            s.scale(w, 2 * h, Qt::KeepAspectRatio);
+        else
+            s.scale(2 * w, h, Qt::KeepAspectRatio);
     }
 
-    if (w != ui->videoWidget->width() || h != ui->videoWidget->height())
-        ui->videoWidget->setGeometry((800-w)/2, (480-h)/2, w, h);
+    qDebug() << (w - s.width()) / 2
+             << (h - s.height()) / 2
+             << s.width()
+             << s.height();
+
+    ui->videoWidget->setGeometry((w - s.width()) / 2, (h - s.height()) / 2,
+                                 s.width(), s.height());
 }
 
 void VideoNowPlayingWindow::setContinuousPlayback(bool enable)
@@ -767,11 +784,27 @@ void VideoNowPlayingWindow::changeEvent(QEvent *e)
     QMainWindow::changeEvent(e);
 }
 
-void VideoNowPlayingWindow::resizeEvent(QResizeEvent *event)
+void VideoNowPlayingWindow::resizeEvent(QResizeEvent *e)
 {
-    ui->videoWidget->resize(event->size());
-    ui->controlsWidget->resize(event->size());
-    QMainWindow::resizeEvent(event);
+    Q_UNUSED(e);
+
+    if (!resized) {
+        resized = true;
+        setFitToScreen(fitToScreen);
+        ui->videoWidget->show();
+    }
+}
+
+void VideoNowPlayingWindow::paintEvent(QPaintEvent *e)
+{
+    if (!overlayVisible) {
+        QPainter painter(this);
+        QColor backgroundColor = palette().color(QWidget::backgroundRole());
+        QRegion clearRegion = e->region() ^ ui->videoWidget->geometry();
+
+        painter.setClipRegion(clearRegion, Qt::IntersectClip);
+        painter.fillRect(geometry(), backgroundColor);
+    }
 }
 
 void VideoNowPlayingWindow::repeatKey()
@@ -788,13 +821,12 @@ void VideoNowPlayingWindow::repeatKey()
 // Set the visibility of the overlay
 void VideoNowPlayingWindow::showOverlay(bool show)
 {
-    ui->settingsOverlay->setVisible(show && showSettings);
-    ui->controlOverlay->setVisible(show);
-    ui->toolbarOverlay->setVisible(show);
-    ui->wmCloseButton->setVisible(show);
-    ui->wmEditButton->setVisible(show);
-
     overlayVisible = show;
+
+    ui->settingsOverlay->setVisible(show && showSettings);
+    ui->settingsWidget->setVisible(show);
+    ui->toolbarOverlay->setVisible(show);
+    ui->controlOverlay->setVisible(show);
 
     updateDNDAtom();
 
