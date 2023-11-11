@@ -102,7 +102,6 @@ private:
     int currentPosition;
     int videoWidth;
     int videoHeight;
-    static QColor colorKey() { return QColor(3, 13, 3); }
 
 private slots:
     void setFitToScreen(bool enable);

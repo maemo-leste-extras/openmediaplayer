@@ -46,7 +46,7 @@ public slots:
     void getVolume();
     void setXid(uint Xid);
     void setErrorPolicy(uint errorPolicy);
-    void setColorKey(int colorKey);
+    void setCurrentFrameOnPause(gboolean currentFrameOnPause);
 
 signals:
     void ready();

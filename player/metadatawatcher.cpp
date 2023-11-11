@@ -1,5 +1,7 @@
 #include "metadatawatcher.h"
 
+#include <QDir>
+
 MetadataWatcher::MetadataWatcher(MafwRegistryAdapter *mafwRegistry) :
     mafwRegistry(mafwRegistry),
     mafwRenderer(mafwRegistry->renderer()),
@@ -67,7 +69,6 @@ void MetadataWatcher::setMetadataFromRenderer(QString key, QVariant value)
 
     if (!sourceMetadataPresent)
         backupMetadata[key] = value;
-
     QVariant &currentValue = currentMetadata[key];
     if (currentValue != value) {
         currentValue = value;
@@ -314,8 +315,11 @@ void MetadataWatcher::onRendererMetadataChanged(QString metadata, QVariant value
                     thumbnail = thumbnail.copy(0, (thumbnail.height()-124)/2, 124, 124);
                 }
 
-                thumbFile = "/home/user/.fmp_pause_thumbnail/"
-                        + QCryptographicHash::hash(currentObjectId.toUtf8(), QCryptographicHash::Md5).toHex()
+                thumbFile = "/home/user/.fmp_pause_thumbnail/";
+
+                QDir().mkpath(thumbFile);
+
+                thumbFile += QCryptographicHash::hash(currentObjectId.toUtf8(), QCryptographicHash::Md5).toHex()
                         + ".jpeg";
 
                 thumbnail.save(thumbFile, "JPEG");

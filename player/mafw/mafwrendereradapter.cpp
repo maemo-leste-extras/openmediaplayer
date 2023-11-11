@@ -206,11 +206,10 @@ void MafwRendererAdapter::setErrorPolicy(uint errorPolicy)
         mafw_extension_set_property_uint(MAFW_EXTENSION(renderer), MAFW_PROPERTY_RENDERER_ERROR_POLICY, errorPolicy);
 }
 
-void MafwRendererAdapter::setColorKey(int colorKey)
+void MafwRendererAdapter::setCurrentFrameOnPause(gboolean currentFrameOnPause)
 {
-    // Despite what the MAFW documentation says, this a writable property
     if (renderer)
-        mafw_extension_set_property_int(MAFW_EXTENSION(this->renderer), MAFW_PROPERTY_RENDERER_COLORKEY, colorKey);
+        mafw_extension_set_property_boolean(MAFW_EXTENSION(this->renderer), "current-frame-on-pause", currentFrameOnPause);
 }
 
 //--- Signal handlers ----------------------------------------------------------

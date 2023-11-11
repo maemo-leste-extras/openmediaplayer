@@ -95,7 +95,7 @@ VideoNowPlayingWindow::VideoNowPlayingWindow(QWidget *parent, MafwRegistryAdapte
 
     // Set up video surface
     QApplication::sync();
-    mafwRenderer->setColorKey(colorKey().rgb() & 0xffffff);
+    mafwRenderer->setCurrentFrameOnPause(TRUE);
     mafwRenderer->setXid(ui->videoWidget->winId());
 
     // Do not jump to the next playlist item if an error occurs
