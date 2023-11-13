@@ -505,6 +505,9 @@ void VideoNowPlayingWindow::toggleSettings()
 // Toggle the visibility of the whole overlay
 void VideoNowPlayingWindow::toggleOverlay()
 {
+    if (mafwState != Playing)
+        return;
+
     overlayRequestedByUser = !overlayVisible;
     showOverlay(overlayRequestedByUser);
 }
@@ -622,6 +625,7 @@ void VideoNowPlayingWindow::onStateChanged(MafwPlayState state)
             positionTimer->stop();
         }
         else if (state == Playing) {
+            showOverlay(false);
             gotInitialPlayState = true;
             gotCurrentPlayState = true;
 
