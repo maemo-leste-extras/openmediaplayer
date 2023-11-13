@@ -689,11 +689,6 @@ void VideoNowPlayingWindow::setFitToScreen(bool enable)
             s.scale(2 * w, h, Qt::KeepAspectRatio);
     }
 
-    qDebug() << (w - s.width()) / 2
-             << (h - s.height()) / 2
-             << s.width()
-             << s.height();
-
     ui->videoWidget->setGeometry((w - s.width()) / 2, (h - s.height()) / 2,
                                  s.width(), s.height());
 }
