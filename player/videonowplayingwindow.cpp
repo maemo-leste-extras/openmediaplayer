@@ -344,7 +344,17 @@ void VideoNowPlayingWindow::onMetadataChanged(QString key, QVariant value)
             // is probably still desired.
             if (resumePosition > 0)
                 mafwRenderer->setPosition(SeekAbsolute, resumePosition);
+
             resumePosition = Duration::Blank;
+        } else if (resumePosition != Duration::Blank) {
+            ui->positionSlider->setValue(resumePosition);
+
+            if (videoLength != Duration::Unknown) {
+                ui->currentPositionLabel->setText(
+                            mmss_pos(reverseTime ?
+                                         resumePosition - videoLength :
+                                         resumePosition));
+            }
         }
     }
 }
@@ -594,8 +604,6 @@ void VideoNowPlayingWindow::onStateChanged(MafwPlayState state)
 
         // Reset position display
         ui->positionSlider->setEnabled(false);
-        ui->positionSlider->setValue(0);
-        ui->currentPositionLabel->setText(mmss_pos(0));
 
         if (ui->bufferBar->maximum() == 0
         && !currentObjectId.startsWith("localtagfs::")
@@ -800,7 +808,6 @@ void VideoNowPlayingWindow::paintEvent(QPaintEvent *e)
         QPainter painter(this);
         QColor backgroundColor = palette().color(QWidget::backgroundRole());
         QRegion clearRegion = e->region() ^ ui->videoWidget->geometry();
-
         painter.setClipRegion(clearRegion, Qt::IntersectClip);
         painter.fillRect(geometry(), backgroundColor);
     }
