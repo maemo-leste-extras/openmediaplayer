@@ -1,3 +1,12 @@
+openmediaplayer (20231120-1) unstable; urgency=low
+
+  * videonowplaying: ui fixes
+  * videonowplaying: properly set position slider
+  * videonowplaying: fix paused video thumbnail generation
+  * videonowplaying: do controlled stop on "close" action
+
+ -- Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>  Mon, 20 Nov 2023 17:24:43 +0200
+
 openmediaplayer (20231025-1) unstable; urgency=low
 
   * videonowplayingwindow: Resize according to screen size
