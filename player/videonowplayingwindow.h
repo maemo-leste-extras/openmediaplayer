@@ -65,7 +65,6 @@ private:
     void updateDNDAtom();
     void showOverlay(bool show);
     void switchToRadio();
-
     static QString errorMessage(int code, const QString &message);
 
     QTimer *volumeTimer;
@@ -92,6 +91,7 @@ private:
     bool isMediaSeekable;
     bool buttonWasDown;
     bool resized;
+    bool closeClicked;
     int keyToRepeat;
     MafwRegistryAdapter *mafwRegistry;
     MafwRendererAdapter *mafwRenderer;
@@ -120,6 +120,7 @@ private slots:
     void onNextButtonClicked();
     void onMetadataChanged(QString key, QVariant value);
     void onScreenLocked(bool locked);
+    void onCloseClicked();
     void repeatKey();
     void togglePlayback();
     void slowFwd();

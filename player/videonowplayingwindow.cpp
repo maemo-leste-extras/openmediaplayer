@@ -77,6 +77,7 @@ VideoNowPlayingWindow::VideoNowPlayingWindow(QWidget *parent, MafwRegistryAdapte
     gotCurrentPlayState = false;
     buttonWasDown = false;
     resized = false;
+    closeClicked = false;
 
     resumePosition = Duration::Unknown;
 
@@ -118,38 +119,21 @@ VideoNowPlayingWindow::VideoNowPlayingWindow(QWidget *parent, MafwRegistryAdapte
 
 VideoNowPlayingWindow::~VideoNowPlayingWindow()
 {
-    if (saveStateOnClose) {
-        // The state should be saved only if resuming is already disabled,
-        // to prevent overwriting a position that is waiting to be resumed.
-        if (resumePosition == Duration::Blank) {
-            // Pausing the video should cause a thumbnail to be generated
-            if (mafwState == Playing)
-                mafwRenderer->pause();
+    // Prepare a metadata table to save the state in it
+    GHashTable* metadata = mafw_metadata_new();
 
-            // Prepare a metadata table to save the state in it
-            GHashTable* metadata = mafw_metadata_new();
+    qDebug() << "Saving position" << currentPosition << "for" << playedObjectId;
 
-            qDebug() << "Saving position" << currentPosition << "for" << playedObjectId;
+    // Store the current position so that the playback can be resumed later
+    mafw_metadata_add_int(metadata, MAFW_METADATA_KEY_PAUSED_POSITION, currentPosition);
 
-            // Store the current position so that the playback can be resumed later
-            mafw_metadata_add_int(metadata, MAFW_METADATA_KEY_PAUSED_POSITION, currentPosition);
+    // If the position is at the beginning, the pause thumbnail should be reset
+    if (currentPosition == 0)
+        mafw_metadata_add_str(metadata, MAFW_METADATA_KEY_PAUSED_THUMBNAIL_URI, "");
 
-            // If the position is at the beginning, the pause thumbnail should be reset
-            if (currentPosition == 0)
-                mafw_metadata_add_str(metadata, MAFW_METADATA_KEY_PAUSED_THUMBNAIL_URI, "");
-
-            // Commit the metadata in the table
-            mafwSource->setMetadata(playedObjectId, metadata);
-            mafw_metadata_release(metadata);
-        }
-
-        // Make sure that video playback is dead after the window is closed,
-        // because otherwise ghost windows may appear, rapidly opening and closing.
-        mafwRenderer->stop();
-        // NOTE: If ghost windows happen despite the line above, it might be
-        // necessary to wait for a confirmation that the playback is stopped and
-        // only then close the window.
-    }
+    // Commit the metadata in the table
+    mafwSource->setMetadata(playedObjectId, metadata);
+    mafw_metadata_release(metadata);
 
     // Restore the default error policy
     mafwRenderer->setErrorPolicy(MAFW_RENDERER_ERROR_POLICY_CONTINUE);
@@ -190,6 +174,20 @@ void VideoNowPlayingWindow::onScreenLocked(bool locked)
     }
 }
 
+void VideoNowPlayingWindow::onCloseClicked()
+{
+    // The state should be saved only if resuming is already disabled,
+    // to prevent overwriting a position that is waiting to be resumed.
+    // Pausing the video should cause a thumbnail to be generated
+    if (saveStateOnClose && resumePosition == Duration::Blank && mafwState == Playing) {
+        hide();
+        closeClicked = true;
+        mafwRenderer->pause();
+    } else {
+        this->close();
+    }
+}
+
 void VideoNowPlayingWindow::setIcons()
 {
     ui->wmEditButton->setIcon(QIcon(wmEditIcon));
@@ -211,7 +209,7 @@ void VideoNowPlayingWindow::connectSignals()
     QShortcut *shortcut;
 
     // Controls on the settings bar
-    connect(ui->wmCloseButton, SIGNAL(clicked()), this, SLOT(close()));
+    connect(ui->wmCloseButton, SIGNAL(clicked()), this, SLOT(onCloseClicked()));
     connect(ui->wmEditButton, SIGNAL(clicked()), this, SLOT(toggleSettings()));
     connect(ui->fitCheckBox, SIGNAL(toggled(bool)), this, SLOT(setFitToScreen(bool)));
     connect(ui->continuousCheckBox, SIGNAL(toggled(bool)), this, SLOT(setContinuousPlayback(bool)));
@@ -620,17 +618,23 @@ void VideoNowPlayingWindow::onStateChanged(MafwPlayState state)
         }
 
         if (state == Paused) {
-            ui->positionSlider->setEnabled(isMediaSeekable);
+            if (!closeClicked) {
+                ui->positionSlider->setEnabled(isMediaSeekable);
 
-            // The play button becomes a resume button
-            ui->playButton->setIcon(QIcon(playButtonIcon));
-            disconnect(ui->playButton, SIGNAL(clicked()), 0, 0);
-            connect(ui->playButton, SIGNAL(clicked()), mafwRenderer, SLOT(resume()));
+                // The play button becomes a resume button
+                ui->playButton->setIcon(QIcon(playButtonIcon));
+                disconnect(ui->playButton, SIGNAL(clicked()), 0, 0);
+                connect(ui->playButton, SIGNAL(clicked()),
+                        mafwRenderer, SLOT(resume()));
+            }
 
             // Playback position is not emitted in the paused state. Request it
             // manually to get the exact value.
             mafwRenderer->getPosition();
             positionTimer->stop();
+
+            if (closeClicked)
+                mafwRenderer->stop();
         }
         else if (state == Playing) {
             showOverlay(false);
@@ -659,18 +663,19 @@ void VideoNowPlayingWindow::onStateChanged(MafwPlayState state)
             startPositionTimer();
         }
         else if (state == Stopped) {
-            // The play button becomes itself
-            ui->playButton->setIcon(QIcon(playButtonIcon));
-            disconnect(ui->playButton, SIGNAL(clicked()), 0, 0);
-            connect(ui->playButton, SIGNAL(clicked()), mafwRenderer, SLOT(play()));
+            if (closeClicked) {
+                this->close();
+            } else {
+                showOverlay(true);
+                // The play button becomes itself
+                ui->playButton->setIcon(QIcon(playButtonIcon));
+                disconnect(ui->playButton, SIGNAL(clicked()), 0, 0);
+                connect(ui->playButton, SIGNAL(clicked()), mafwRenderer, SLOT(play()));
 
-            // Reset the last received position
-            currentPosition = 0;
-
-            positionTimer->stop();
-
-            if (gotCurrentPlayState)
-                delete this; // why is it not deleted automatically, despite WA_DeleteOnClose?
+                // Reset the last received position
+                currentPosition = 0;
+                positionTimer->stop();
+            }
         }
     }
 }
@@ -760,11 +765,11 @@ void VideoNowPlayingWindow::mouseReleaseEvent(QMouseEvent *)
 
 void VideoNowPlayingWindow::keyPressEvent(QKeyEvent *e)
 {
-    if (e->isAutoRepeat()) return;
+    if (e->isAutoRepeat())
+        return;
 
     if (e->key() == Qt::Key_Backspace)
-        this->close();
-
+        onCloseClicked();
     else if (e->key() == Qt::Key_Left
          ||  e->key() == Qt::Key_Right
          ||  e->key() == Qt::Key_Up
