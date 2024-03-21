@@ -159,6 +159,7 @@ private slots:
     void onPositionSliderMoved(int position);
     void onVolumeSliderPressed();
     void onVolumeSliderReleased();
+    void onPositionTimerTimeout();
 
     void onPlayMenuRequested(const QPoint &pos);
     void onLyricsContextMenuRequested(const QPoint &pos);

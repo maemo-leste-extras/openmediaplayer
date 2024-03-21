@@ -93,6 +93,7 @@ NowPlayingWindow::NowPlayingWindow(QWidget *parent, MafwRegistryAdapter *mafwReg
     volumeTimer->setInterval(3000);
 
     positionTimer = new QTimer(this);
+    positionTimer->setSingleShot(false);
     positionTimer->setInterval(1000);
 
     ui->songList->setItemDelegate(new PlayListDelegate(ui->songList));
@@ -424,12 +425,17 @@ void NowPlayingWindow::connectSignals()
     connect(ui->nextButton, SIGNAL(clicked()), this, SLOT(onNextButtonClicked()));
     connect(ui->prevButton, SIGNAL(clicked()), this, SLOT(onPreviousButtonClicked()));
 
-    connect(positionTimer, SIGNAL(timeout()), mafwRenderer, SLOT(getPosition()));
+    connect(positionTimer, SIGNAL(timeout()), this, SLOT(onPositionTimerTimeout()));
     connect(ui->actionClear_now_playing, SIGNAL(triggered()), this, SLOT(clearPlaylist()));
 
     connect(playlist, SIGNAL(propertyChanged()), this, SLOT(updatePlaylistState()));
     connect(playlist, SIGNAL(contentsChanged(uint,uint,uint)), this, SLOT(updatePlaylist(uint,uint,uint)));
     connect(playlist, SIGNAL(itemMoved(uint,uint)), this, SLOT(onItemMoved(uint,uint)));
+}
+
+void NowPlayingWindow::onPositionTimerTimeout()
+{
+    mafwRenderer->getPosition();
 }
 
 void NowPlayingWindow::onScreenLocked(bool locked)
@@ -831,10 +837,8 @@ void NowPlayingWindow::onPositionChanged(int position)
         ui->currentPositionLabel->setText(mmss_pos(reverseTime ? position-songDuration : position));
 
     if (this->songDuration != 0 && this->songDuration != -1 && qmlView == 0) {
-#ifdef DEBUG
         qDebug() << "Current position: " << position;
         qDebug() << "Song Length: " << this->songDuration;
-#endif
         if (!ui->positionSlider->isSliderDown() && ui->positionSlider->isVisible())
             ui->positionSlider->setValue(position);
     }
