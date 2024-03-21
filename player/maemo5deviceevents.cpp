@@ -27,7 +27,7 @@ Maemo5DeviceEvents* Maemo5DeviceEvents::acquire()
 
 Maemo5DeviceEvents::Maemo5DeviceEvents()
 {
-    this->screenState = "unlocked";
+    this->screenState = "on";
     this->connectSignals();
     QDBusPendingCall call = QDBusConnection::systemBus().asyncCall(QDBusMessage::createMethodCall("com.nokia.mce", "/com/nokia/mce/request", "com.nokia.mce.request", "get_tklock_mode"));
     QDBusPendingCallWatcher *watcher = new QDBusPendingCallWatcher(call, this);
@@ -47,7 +47,7 @@ void Maemo5DeviceEvents::connectSignals()
     QDBusConnection::systemBus().connect("",
                                          "/com/nokia/mce/signal",
                                          "com.nokia.mce.signal",
-                                         "tklock_mode_ind",
+                                         "display_status_ind",
                                          this,
                                          SLOT(onScreenLocked(QString)));
 }
@@ -58,23 +58,23 @@ void Maemo5DeviceEvents::onScreenLocked(QString state)
     qDebug() << "Maemo5DeviceEvents: Screen lock status changed: " << state;
 #endif
     this->screenState = state;
-    if (state.endsWith("unlocked"))
-        emit screenLocked(false);
-    else
+    if (state.endsWith("off"))
         emit screenLocked(true);
+    else
+        emit screenLocked(false);
 }
 
 bool Maemo5DeviceEvents::isScreenLocked()
 {
-    if (this->screenState.endsWith("unlocked")) {
-#ifdef DEBUG
-        qDebug() << "Maemo5DeviceEvents: Screen is unlocked";
-#endif
-        return false;
-    } else {
+    if (this->screenState.endsWith("off")) {
 #ifdef DEBUG
         qDebug() << "Maemo5DeviceEvents: Screen is locked";
 #endif
         return true;
+    } else {
+#ifdef DEBUG
+        qDebug() << "Maemo5DeviceEvents: Screen is unlocked";
+#endif
+        return false;
     }
 }
