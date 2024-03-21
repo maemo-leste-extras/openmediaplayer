@@ -1,3 +1,11 @@
+openmediaplayer (20240321-1) unstable; urgency=low
+
+  * player: use display state instead of tklock state to avoid wasting power when the display is off but not locked
+  * player: correctly retrigger the slider update timer
+  * player: fix the qml car and entertainment views
+
+ -- Carl Klemm <carl@uvos.xyz>  Thu, 21 Mar 2024 23:04:41 +0100
+
 openmediaplayer (20231120-1) unstable; urgency=low
 
   * videonowplaying: ui fixes
