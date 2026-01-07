@@ -344,7 +344,7 @@
    </widget>
    <widget class="KbMenu" name="menuHelp">
     <property name="title">
-     <string>Options</string>
+     <string>Help</string>
     </property>
     <addaction name="actionAbout"/>
     <addaction name="actionAbout_Qt"/>
