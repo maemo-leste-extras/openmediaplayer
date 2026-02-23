@@ -23,7 +23,6 @@ Package: openmediaplayer
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
     libqt5x11extras5,
-    libqt5opengl5,
     qt-platform-maemo,
     mafw-iradio-source,
     mafw-tracker-source
